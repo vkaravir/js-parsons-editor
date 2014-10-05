@@ -1,0 +1,1 @@
+!function(){var a=function(a,b){this._editor=React.renderComponent(new ParsonsEditorComponent(b||{}),a.element)};a.prototype.getExerciseConfig=function(){return this._editor.getExerciseConfig()},window.ParsonsEditor=a}();

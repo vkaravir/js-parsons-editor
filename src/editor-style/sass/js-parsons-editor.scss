@@ -1,0 +1,115 @@
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/transition";
+
+$mainColor: darkorange;
+$bgColor: #eee;
+$animDuration: 0.1s;
+$animTiming: linear;
+
+.jsparsons-editor {
+  color: dodgerblue;
+}
+.jsparsons-editor-container {
+  font-size: 16px;
+  font-family: Helvetica, sans-serif;
+  * {
+    box-sizing: border-box;
+  }
+  h2 {
+    color: $mainColor;
+    margin-bottom: 0;
+  }
+  ul {
+    margin: 0;
+  }
+  textarea {
+    width: 100%;
+  }
+  .jsparsons-component-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .jsparsons-component {
+    width: 50%;
+    padding: 0 1rem;
+    @include transition(width, $animDuration, $animTiming);
+    background-color: $bgColor;
+  }
+  .jsparsons-left {
+    margin-right: 0.5rem;
+  }
+  .jsparsons-right {
+    margin-left: 0.5rem;
+  }
+  .jsparsons-executable-editor {
+    select {
+      margin: 0 0 0 0.5rem;
+    }
+    textarea.jsparsons-python {
+    background: repeating-linear-gradient(
+                -45deg,
+                $bgColor,
+                $bgColor 10px,
+                #fee 10px,
+                #fee 20px
+              );
+    }
+  }
+  &.jsparsons-line-editor .jsparsons-codelines {
+    width: 100%;
+    margin-right: 0;
+  }
+  .jsparsons-mode-editor {
+    clear: left;
+    /*.jsparsons-unit-editor, */.jsparsons-var-editor {
+      padding: 0 1rem;
+      background-color: $bgColor;
+    }
+
+    .fa {
+      color: forestgreen;
+      padding-right: 0.5rem;
+    }
+    .jsparsons-unit-editor {
+      p {
+        padding: 0.5rem;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.jsparsons-mode-choice ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    width: 50%;
+    cursor: pointer;
+    position: relative;
+    background-color: $bgColor;
+    padding: 0.5rem 1rem 0.5rem 3rem;
+    @include transition(background-color, $animDuration, $animTiming);
+
+    span {
+      left: -0.5rem;
+      @include transition(left, $animDuration, $animTiming);
+    }
+    h4 {
+      margin: 1rem 0 0 -1rem;
+      @include transition(margin, $animDuration, $animTiming);
+    }
+  }
+  li.selected {
+    background-color: $mainColor;
+    h4 {
+      margin-left: 1rem;
+    }
+    .fa {
+      position: absolute;
+      left: 0.5rem;
+    }
+  }
+}

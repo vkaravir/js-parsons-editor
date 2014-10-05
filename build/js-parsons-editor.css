@@ -1,0 +1,133 @@
+/* line 9, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor {
+  color: dodgerblue;
+}
+
+/* line 12, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container {
+  font-size: 16px;
+  font-family: Helvetica, sans-serif;
+}
+/* line 15, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container * {
+  box-sizing: border-box;
+}
+/* line 18, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container h2 {
+  color: darkorange;
+  margin-bottom: 0;
+}
+/* line 22, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container ul {
+  margin: 0;
+}
+/* line 25, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container textarea {
+  width: 100%;
+}
+/* line 28, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-component-container {
+  display: flex;
+  flex-direction: row;
+}
+/* line 32, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-component {
+  width: 50%;
+  padding: 0 1rem;
+  -webkit-transition: width, 0.1s, linear;
+  -moz-transition: width, 0.1s, linear;
+  -o-transition: width, 0.1s, linear;
+  transition: width, 0.1s, linear;
+  background-color: #eeeeee;
+}
+/* line 38, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-left {
+  margin-right: 0.5rem;
+}
+/* line 41, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-right {
+  margin-left: 0.5rem;
+}
+/* line 45, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-executable-editor select {
+  margin: 0 0 0 0.5rem;
+}
+/* line 48, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-executable-editor textarea.jsparsons-python {
+  background: repeating-linear-gradient(-45deg, #eeeeee, #eeeeee 10px, #ffeeee 10px, #ffeeee 20px);
+}
+/* line 58, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container.jsparsons-line-editor .jsparsons-codelines {
+  width: 100%;
+  margin-right: 0;
+}
+/* line 62, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-mode-editor {
+  clear: left;
+  /*.jsparsons-unit-editor, */
+}
+/* line 64, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-mode-editor .jsparsons-var-editor {
+  padding: 0 1rem;
+  background-color: #eeeeee;
+}
+/* line 69, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-mode-editor .fa {
+  color: forestgreen;
+  padding-right: 0.5rem;
+}
+/* line 74, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container .jsparsons-mode-editor .jsparsons-unit-editor p {
+  padding: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* line 82, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+/* line 88, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li {
+  width: 50%;
+  cursor: pointer;
+  position: relative;
+  background-color: #eeeeee;
+  padding: 0.5rem 1rem 0.5rem 3rem;
+  -webkit-transition: background-color, 0.1s, linear;
+  -moz-transition: background-color, 0.1s, linear;
+  -o-transition: background-color, 0.1s, linear;
+  transition: background-color, 0.1s, linear;
+}
+/* line 96, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li span {
+  left: -0.5rem;
+  -webkit-transition: left, 0.1s, linear;
+  -moz-transition: left, 0.1s, linear;
+  -o-transition: left, 0.1s, linear;
+  transition: left, 0.1s, linear;
+}
+/* line 100, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li h4 {
+  margin: 1rem 0 0 -1rem;
+  -webkit-transition: margin, 0.1s, linear;
+  -moz-transition: margin, 0.1s, linear;
+  -o-transition: margin, 0.1s, linear;
+  transition: margin, 0.1s, linear;
+}
+/* line 105, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li.selected {
+  background-color: darkorange;
+}
+/* line 107, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li.selected h4 {
+  margin-left: 1rem;
+}
+/* line 110, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-mode-choice ul li.selected .fa {
+  position: absolute;
+  left: 0.5rem;
+}

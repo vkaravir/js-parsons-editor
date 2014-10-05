@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../build/js-parsons-editor.css" />
+    <link rel="stylesheet" href="../libs/fonts/font-awesome.min.css" />
+    <title>Example Editor</title>
+  </head>
+  <body>
+    <div id="editorroot"></div>
+    <script src="../js-parsons/lib/jquery.min.js"></script>
+    <script src="../js-parsons/lib/jquery-ui.min.js"></script>
+    <script src="../libs/react.js"></script>
+    <script src="../build/js-parsons-editor-templates.js"></script>
+    <script src="../build/js-parsons-editor.js"></script>
+    <script>
+      var editor = new ParsonsEditor({element: document.getElementById("editorroot")}, {codelines: ["kissa", "koira"]});
+    </script>
+  </body>
+</html>
