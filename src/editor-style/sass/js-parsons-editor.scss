@@ -78,6 +78,18 @@ $animTiming: linear;
       }
     }
   }
+  table {
+    width: 100%;
+    td {
+      vertical-align: top;
+    }
+    input {
+      width: 100%;
+    }
+    .jsparsons-varchecks input {
+      width: 50%;
+    }
+  }
 }
 .jsparsons-mode-choice ul {
   list-style-type: none;

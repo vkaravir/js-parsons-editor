@@ -163,11 +163,11 @@
       }
       return (
         <div className="jsparsons-mode-editor">
-          <h2><span className="fa fa-tasks"/>Varcheck-based</h2>
+          <h2><span className="fa fa-tasks"/>Variable check configuration</h2>
           <div className="jsparsons-var-editor">
             <table>
               <thead>
-                <tr><th>Description</th><th>Code Before</th><th>Variable Checks</th><th>Code After</th></tr>
+                <tr><th>Description</th><th>Code Before</th><th>Code After</th><th>Variable Checks</th></tr>
               </thead>
               <tbody>
               {vartests}
@@ -230,9 +230,9 @@
       return (
         <tr>
           <td><input type="text" value={this.state.message} onChange={this._messageChanged}/></td>
-          <td>{varchecks}<div><button onClick={this._addVariable}>+</button></div></td>
           <td><input type="text" value={this.state.initCode} onChange={this._initCodeChanged}/></td>
           <td><input type="text" value={this.state.code} onChange={this._codeChanged}/></td>
+          <td className="jsparsons-varchecks">{varchecks}<div><button onClick={this._addVariable}>+</button></div></td>
         </tr>
       );
     }
@@ -288,7 +288,7 @@
     render: function() {
       return (
         <div className="jsparsons-mode-editor">
-          <h2><span className="fa fa-check-circle"/>Unittest-based</h2>
+          <h2><span className="fa fa-check-circle"/>Unit tests</h2>
           <div className="jsparsons-unit-editor jsparsons-component-container">
             <div className="jsparsons-component jsparsons-left">
               <textarea rows="10" value={this.state.unittests} onChange={this._testsChanged}></textarea>
@@ -328,7 +328,7 @@
     render: function() {
       return (
         <div className="jsparsons-mode-editor">
-          <h2><span className="fa fa-bug"/>Turtle-based</h2>
+          <h2><span className="fa fa-bug"/>Turtle configuration</h2>
           <div className="jsparsons-turtle-editor jsparsons-component-container">
             <div className="jsparsons-turtle-model jsparsons-component jsparsons-left">
               <p className="jsparsons-instructions">Python code for the model turtle pattern (you can use variable <code>modelTurtle</code> to access the turtle object):</p>

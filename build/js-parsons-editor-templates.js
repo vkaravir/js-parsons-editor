@@ -163,11 +163,11 @@
       }
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
-          React.DOM.h2(null, React.DOM.span({className: "fa fa-tasks"}), "Varcheck-based"), 
+          React.DOM.h2(null, React.DOM.span({className: "fa fa-tasks"}), "Variable check configuration"), 
           React.DOM.div({className: "jsparsons-var-editor"}, 
             React.DOM.table(null, 
               React.DOM.thead(null, 
-                React.DOM.tr(null, React.DOM.th(null, "Description"), React.DOM.th(null, "Code Before"), React.DOM.th(null, "Variable Checks"), React.DOM.th(null, "Code After"))
+                React.DOM.tr(null, React.DOM.th(null, "Description"), React.DOM.th(null, "Code Before"), React.DOM.th(null, "Code After"), React.DOM.th(null, "Variable Checks"))
               ), 
               React.DOM.tbody(null, 
               vartests
@@ -230,9 +230,9 @@
       return (
         React.DOM.tr(null, 
           React.DOM.td(null, React.DOM.input({type: "text", value: this.state.message, onChange: this._messageChanged})), 
-          React.DOM.td(null, varchecks, React.DOM.div(null, React.DOM.button({onClick: this._addVariable}, "+"))), 
           React.DOM.td(null, React.DOM.input({type: "text", value: this.state.initCode, onChange: this._initCodeChanged})), 
-          React.DOM.td(null, React.DOM.input({type: "text", value: this.state.code, onChange: this._codeChanged}))
+          React.DOM.td(null, React.DOM.input({type: "text", value: this.state.code, onChange: this._codeChanged})), 
+          React.DOM.td({className: "jsparsons-varchecks"}, varchecks, React.DOM.div(null, React.DOM.button({onClick: this._addVariable}, "+")))
         )
       );
     }
@@ -288,7 +288,7 @@
     render: function() {
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
-          React.DOM.h2(null, React.DOM.span({className: "fa fa-check-circle"}), "Unittest-based"), 
+          React.DOM.h2(null, React.DOM.span({className: "fa fa-check-circle"}), "Unit tests"), 
           React.DOM.div({className: "jsparsons-unit-editor jsparsons-component-container"}, 
             React.DOM.div({className: "jsparsons-component jsparsons-left"}, 
               React.DOM.textarea({rows: "10", value: this.state.unittests, onChange: this._testsChanged})
@@ -328,7 +328,7 @@
     render: function() {
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
-          React.DOM.h2(null, React.DOM.span({className: "fa fa-bug"}), "Turtle-based"), 
+          React.DOM.h2(null, React.DOM.span({className: "fa fa-bug"}), "Turtle configuration"), 
           React.DOM.div({className: "jsparsons-turtle-editor jsparsons-component-container"}, 
             React.DOM.div({className: "jsparsons-turtle-model jsparsons-component jsparsons-left"}, 
               React.DOM.p({className: "jsparsons-instructions"}, "Python code for the model turtle pattern (you can use variable ", React.DOM.code(null, "modelTurtle"), " to access the turtle object):"), 

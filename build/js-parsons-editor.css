@@ -82,15 +82,31 @@
   margin-top: 0;
   margin-bottom: 0;
 }
+/* line 81, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container table {
+  width: 100%;
+}
+/* line 83, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container table td {
+  vertical-align: top;
+}
+/* line 86, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container table input {
+  width: 100%;
+}
+/* line 89, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-editor-container table .jsparsons-varchecks input {
+  width: 50%;
+}
 
-/* line 82, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 94, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul {
   list-style-type: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
 }
-/* line 88, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 100, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li {
   width: 50%;
   cursor: pointer;
@@ -102,7 +118,7 @@
   -o-transition: background-color, 0.1s, linear;
   transition: background-color, 0.1s, linear;
 }
-/* line 96, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 108, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li span {
   left: -0.5rem;
   -webkit-transition: left, 0.1s, linear;
@@ -110,7 +126,7 @@
   -o-transition: left, 0.1s, linear;
   transition: left, 0.1s, linear;
 }
-/* line 100, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 112, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li h4 {
   margin: 1rem 0 0 -1rem;
   -webkit-transition: margin, 0.1s, linear;
@@ -118,15 +134,15 @@
   -o-transition: margin, 0.1s, linear;
   transition: margin, 0.1s, linear;
 }
-/* line 105, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 117, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li.selected {
   background-color: darkorange;
 }
-/* line 107, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 119, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li.selected h4 {
   margin-left: 1rem;
 }
-/* line 110, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 122, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li.selected .fa {
   position: absolute;
   left: 0.5rem;
