@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="../build/js-parsons-editor.css" />
     <link rel="stylesheet" href="../libs/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="../js-parsons/parsons.css" />
     <title>Example Editor</title>
   </head>
   <body>
@@ -12,8 +13,13 @@
     <script src="../libs/react.js"></script>
     <script src="../build/js-parsons-editor-templates.js"></script>
     <script src="../build/js-parsons-editor.js"></script>
+    <script src="../js-parsons/lib/underscore-min.js"></script>
+    <script src="../js-parsons/lib/lis.js"></script>
+    <script src="../js-parsons/lib/skulpt.js"></script>
+    <script src="../js-parsons/lib/skulpt-stdlib.js"></script>
+    <script src="../js-parsons/parsons.js"></script>
     <script>
-      var editor = new ParsonsEditor({element: document.getElementById("editorroot")}, {codelines: ["kissa", "koira"]});
+      var editor = new ParsonsEditor({element: document.getElementById("editorroot")}, {codelines: ["a = tmp", "tmp = b", "b = a"], mode: "var", vartests: [{"message":"Testing","initcode":"a=2\nb=0","code":"","variables":{"a":0,"b":2}}]});
     </script>
   </body>
 </html>

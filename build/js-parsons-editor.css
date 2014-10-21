@@ -147,3 +147,64 @@
   position: absolute;
   left: 0.5rem;
 }
+
+/* line 129, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 1rem;
+}
+/* line 138, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview.visible {
+  display: block;
+}
+/* line 141, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview .jsparsons-container {
+  display: flex;
+}
+/* line 144, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview .jsparsons-source {
+  width: 40%;
+}
+/* line 147, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview .jsparsons-target {
+  width: 60%;
+}
+/* line 150, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview h3 {
+  margin-top: 0;
+  text-align: center;
+}
+/* line 154, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview button {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+}
+/* line 159, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview .fa-close {
+  color: darkred;
+}
+
+/* line 163, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-test-button {
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+  background-color: darkorange;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+/* line 170, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-test-button:active {
+  -webkit-transition: color, 0.1s, linear;
+  -moz-transition: color, 0.1s, linear;
+  -o-transition: color, 0.1s, linear;
+  transition: color, 0.1s, linear;
+  color: black;
+}

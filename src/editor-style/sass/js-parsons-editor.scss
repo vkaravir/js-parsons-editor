@@ -125,3 +125,50 @@ $animTiming: linear;
     }
   }
 }
+
+.jsparsons-preview {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  padding: 1rem;
+  &.visible {
+    display: block;
+  }
+  .jsparsons-container {
+    display: flex;
+  }
+  .jsparsons-source {
+    width: 40%;
+  }
+  .jsparsons-target {
+    width: 60%;
+  }
+  h3 {
+    margin-top: 0;
+    text-align: center;
+  }
+  button {
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+  }
+  .fa-close {
+    color: darkred;
+  }
+}
+.jsparsons-test-button {
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+  background-color: $mainColor;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  &:active {
+    @include transition(color, $animDuration, $animTiming);
+    color: black;
+  }
+}

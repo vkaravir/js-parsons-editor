@@ -34,6 +34,10 @@
       if (["var", "unit", "turtle"].indexOf(this.state.mode) !== -1) {
        executableEditor = new ExecutableEditor({ref: "executableEditor"});
       }
+      var testButton;
+      if (window.ParsonsWidget) {
+        testButton = new TestButton({editor: this});
+      }
       return (
         React.DOM.div({className: "jsparsons-editor-container jsparsons-" + this.state.mode + "-editor"}, 
           React.DOM.h2(null, "Select the type of grading"), 
@@ -71,7 +75,8 @@
             codelineEditor, 
             executableEditor
           ), 
-          modeEditor
+          modeEditor, 
+          testButton
         )
       )
     }
@@ -185,10 +190,10 @@
       var variables = {};
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        variables[vari.name] = vari.value;
+        variables[vari.key] = vari.value;
       }
       return { message: this.state.message,
-               initcode: this.state.initCode,
+               initcode: this.state.initcode,
                code: this.state.code,
                variables: variables };
     },
@@ -199,14 +204,14 @@
       }
       return { message: this.props.message || "",
                variables: variables,
-               initCode: this.props.initCode || "",
+               initcode: this.props.initcode || "",
                code: this.props.code || "" };
     },
     _messageChanged: function(evt) {
       this.setState({message: evt.target.value});
     },
     _initCodeChanged: function(evt) {
-      this.setState({initCode: evt.target.value});
+      this.setState({initcode: evt.target.value});
     },
     _codeChanged: function(evt) {
       this.setState({code: evt.target.value});
@@ -215,22 +220,32 @@
       var newVars = this.state.variables.concat([{key: "", value: ""}]);
       this.setState({variables: newVars});
     },
-    _updateVariable: function(i, name, value) {
+    _updateVariable: function(i, name, value, valtype) {
       this.state.variables[i].key = name;
-      this.state.variables[i].value = value;
+      var newVal;
+      if (valtype === "boolean") {
+        newVal = (value==="true"?true:false);
+      } else if (valtype === "int") {
+        newVal = parseInt(value, 10);
+      } else if (valtype === "decimal") {
+        newVal = parseFloat(value, 10);
+      } else {
+        newVal = "" + value;
+      }
+      this.state.variables[i].value = newVal;
     },
     render: function() {
       var varchecks = [];
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, update: function(i, name, val) {
-            this._updateVariable(i, name, val);
+        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, update: function(i, name, val, valtype) {
+            this._updateVariable(i, name, val, valtype);
           }.bind(this)}));
       }
       return (
         React.DOM.tr(null, 
           React.DOM.td(null, React.DOM.input({type: "text", value: this.state.message, onChange: this._messageChanged})), 
-          React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.initCode, onChange: this._initCodeChanged})), 
+          React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.initcode, onChange: this._initCodeChanged})), 
           React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.code, onChange: this._codeChanged})), 
           React.DOM.td({className: "jsparsons-varchecks"}, varchecks, React.DOM.div(null, React.DOM.button({onClick: this._addVariable}, "+")))
         )
@@ -240,21 +255,47 @@
 
   var VarCheck = React.createClass({displayName: 'VarCheck',
     getInitialState: function() {
-      return {varname: this.props.name, varvalue: this.props.value };
+      // handle the type of the variable value
+      // if it's a number, try to convert to integer and then decimal
+      // everything else is treated as a string
+      var varvalue = this.props.value,
+          vartype = typeof varvalue;
+      if (vartype === "number") {
+        if ("" + parseInt(varvalue, 10) == varvalue) {
+          vartype = "int";
+        } else {
+          vartype = "decimal";
+        }
+      } else if (vartype === "boolean") {
+        // nothing to do
+      } else { // force everything into a string
+        vartype = "string";
+      }
+      return {varname: this.props.name, varvalue: varvalue, vartype: vartype || "string" };
     },
     _nameChanged: function(evt) {
       this.setState({varname: evt.target.value});
-      this.props.update(this.props.key.replace("var", ""), evt.target.value, this.state.varvalue);
+      this.props.update(this.props.key.replace("var", ""), evt.target.value, this.state.varvalue, this.state.vartype);
     },
     _valueChanged: function(evt) {
       this.setState({varvalue: evt.target.value});
-      this.props.update(this.props.key.replace("var", ""), this.state.varname, evt.target.value);
+      this.props.update(this.props.key.replace("var", ""), this.state.varname, evt.target.value, this.state.vartype);
+    },
+    _typeChanged: function(evt) {
+      this.setState({vartype: evt.target.value});
+      this.props.update(this.props.key.replace("var", ""), this.state.varname, this.state.varvalue, evt.target.value);
     },
     render: function() {
       return (
         React.DOM.div(null, 
           React.DOM.input({type: "text", value: this.state.varname, onChange: this._nameChanged, placeholder: "name"}), 
-          React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: "value"})
+          React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: "value"}), 
+          React.DOM.select({value: this.state.vartype, onChange: this._typeChanged}, 
+            React.DOM.option({value: "int"}, "Integer"), 
+            React.DOM.option({value: "decimal"}, "Decimal"), 
+            React.DOM.option({value: "boolean"}, "Boolean"), 
+            React.DOM.option({value: "string"}, "String")
+          )
         )
       )
     }
@@ -346,5 +387,59 @@
       )
     }
   });
+
+  var TestButton = React.createClass({displayName: 'TestButton',
+    testWidget: function() {
+      var opts = editor.getExerciseConfig();
+      var parson = new ParsonsWidget($.extend({
+          'sortableId': 'jsparsons-preview-target',
+          'trashId': 'jsparsons-preview-source'
+      }, opts));
+      parson.init(opts.codelines.join('\n'));
+      parson.shuffleLines();
+      this.setState({visible: true, parson: parson});
+    },
+    getInitialState: function() {
+      return {visible: false, feedback: ""};
+    },
+    _close: function() {
+      this.setState({visible: false, feedback: ""});
+    },
+    _resetWidget: function() {
+      this.state.parson.shuffleLines();
+      this.setState({feedback: ""});
+    },
+    _showWidgetFeedback: function() {
+      var fb = this.state.parson.getFeedback();
+      if (fb.length) {
+        this.setState({feedback: fb.join('\n')});
+      } else if (fb.feedback) {
+        this.setState({feedback: "<h2>Feedback from testing your program:</h2>" + fb.feedback});
+      } else {
+        this.setState({feedback: "Good, you solved the assignment!"});
+      }
+    },
+    render: function() {
+      return (
+        React.DOM.div(null, 
+          React.DOM.div({className: (this.state.visible?"visible ":"") + "jsparsons-preview"}, 
+            React.DOM.button({onClick: this._close}, React.DOM.span({className: "fa fa-close fa-2x"}), "Close"), 
+            React.DOM.h3(null, "Parsons Problem Preview"), 
+            React.DOM.div({className: "jsparsons-container"}, 
+              React.DOM.div({id: "jsparsons-preview-source", className: "sortable-code jsparsons-source"}), 
+              React.DOM.div({id: "jsparsons-preview-target", className: "sortable-code jsparsons-target"})
+            ), 
+            React.DOM.div({className: "jsparsons-container"}, 
+              React.DOM.div({onClick: this._resetWidget}, "Reset"), 
+              React.DOM.div({onClick: this._showWidgetFeedback}, "Feedback")
+            ), 
+            React.DOM.div({className: "jsparsons-feedback", dangerouslySetInnerHTML: {__html:this.state.feedback}})
+          ), 
+          React.DOM.div({className: "jsparsons-test-button", onClick: this.testWidget}, "Test you configuration")
+        )
+      );
+    }
+  });
+
   window.ParsonsEditorComponent = ParsonsEditorComponent;
 }());
