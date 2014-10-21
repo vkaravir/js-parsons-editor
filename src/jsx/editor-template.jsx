@@ -25,7 +25,7 @@
           executableEditor,
           modeEditor;
       if (this.state.mode === "var") {
-        modeEditor = new VarCheckEditor({ref: "modeEditor"});
+        modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests});
       } else if (this.state.mode === "unit") {
         modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests});
       } else if (this.state.mode === "turtle") {
@@ -185,10 +185,10 @@
       var variables = {};
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        variables[vari.key] = vari.value;
+        variables[vari.name] = vari.value;
       }
       return { message: this.state.message,
-               initCode: this.state.initCode,
+               initcode: this.state.initCode,
                code: this.state.code,
                variables: variables };
     },
@@ -223,15 +223,15 @@
       var varchecks = [];
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        varchecks.push(new VarCheck({key: "var" + i, value: vari.value, update: function(i, name, val) {
+        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, update: function(i, name, val) {
             this._updateVariable(i, name, val);
           }.bind(this)}));
       }
       return (
         <tr>
           <td><input type="text" value={this.state.message} onChange={this._messageChanged}/></td>
-          <td><input type="text" value={this.state.initCode} onChange={this._initCodeChanged}/></td>
-          <td><input type="text" value={this.state.code} onChange={this._codeChanged}/></td>
+          <td><textarea type="text" value={this.state.initCode} onChange={this._initCodeChanged}/></td>
+          <td><textarea type="text" value={this.state.code} onChange={this._codeChanged}/></td>
           <td className="jsparsons-varchecks">{varchecks}<div><button onClick={this._addVariable}>+</button></div></td>
         </tr>
       );
