@@ -390,7 +390,7 @@
 
   var TestButton = React.createClass({displayName: 'TestButton',
     testWidget: function() {
-      var opts = editor.getExerciseConfig();
+      var opts = this.props.editor.getExerciseConfig();
       var parson = new ParsonsWidget($.extend({
           'sortableId': 'jsparsons-preview-target',
           'trashId': 'jsparsons-preview-source'
