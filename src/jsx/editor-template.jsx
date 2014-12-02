@@ -29,10 +29,14 @@
       } else if (this.state.mode === "unit") {
         modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests});
       } else if (this.state.mode === "turtle") {
-        modeEditor = new TurtleEditor({ref: "modeEditor"});
+        // create turtle mode editor
+        modeEditor = new TurtleEditor({ref: "modeEditor", turtleModelCode: this.props.turtleModelCode,
+                                      turtlePenDown: this.props.turtlePenDown,
+                                      turtleTestCode: this.props.turtleTestCode});
       }
       if (["var", "unit", "turtle"].indexOf(this.state.mode) !== -1) {
-       executableEditor = new ExecutableEditor({ref: "executableEditor"});
+       executableEditor = new ExecutableEditor({ref: "executableEditor", programmingLang: this.props.programmingLang,
+                                                executableCode: this.props.executableCode});
       }
       var testButton;
       if (window.ParsonsWidget) {
