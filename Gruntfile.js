@@ -29,6 +29,12 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    watch: {
+      editor: {
+        files: ['src/*', 'src/**/*'],
+        tasks: ["default"]
+      }
     }
   });
 
