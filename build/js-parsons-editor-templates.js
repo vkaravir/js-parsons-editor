@@ -138,8 +138,8 @@
             React.DOM.select({name: "prog-lang", value: this.state.programmingLang, onChange: this._langChanged}, 
               React.DOM.option({value: "python"}, "Python"), 
               React.DOM.option({value: "pseudo"}, "Pseudo"), 
-              React.DOM.option({value: "Java"}, "Java"), 
-              React.DOM.option({value: "Other"}, "Other")
+              React.DOM.option({value: "java"}, "Java"), 
+              React.DOM.option({value: "other"}, "Other")
             )
           ), 
           React.DOM.textarea({rows: "10", disabled: this.state.programmingLang === "python", className: "jsparsons-" + this.state.programmingLang, 

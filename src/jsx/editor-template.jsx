@@ -138,8 +138,8 @@
             <select name="prog-lang" value={this.state.programmingLang} onChange={this._langChanged}>
               <option value="python">Python</option>
               <option value="pseudo">Pseudo</option>
-              <option value="Java">Java</option>
-              <option value="Other">Other</option>
+              <option value="java">Java</option>
+              <option value="other">Other</option>
             </select>
           </p>
           <textarea rows="10" disabled={this.state.programmingLang === "python"} className={"jsparsons-" + this.state.programmingLang}
