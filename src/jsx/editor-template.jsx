@@ -1,5 +1,24 @@
 /** @jsx React.DOM */
 (function() {
+
+  var TRANSLATIONS = {
+    "en": {
+
+    },
+    "fi": {
+
+    }
+  };
+  var getTranslator = function(lang) {
+    if (!lang || !TRANSLATIONS[lang]) {
+      lang = "en"
+    }
+    var trans = TRANSLATIONS[lang];
+    return function(key) {
+      return trans[key] || key.toUpperCase();
+    }
+  };
+
   var ParsonsEditorComponent = React.createClass({
     getExerciseConfig: function() {
       var conf = {mode: this.state.mode, codelines: this.refs.codelineEditor.getConfig()};
@@ -23,24 +42,25 @@
                                                 codelines: this.props.codelines,
                                                 ref: "codelineEditor"}),
           executableEditor,
-          modeEditor;
+          modeEditor,
+          translator = getTranslator(this.props.language);
       if (this.state.mode === "var") {
-        modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests});
+        modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests, _: translator});
       } else if (this.state.mode === "unit") {
-        modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests});
+        modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests, _: translator});
       } else if (this.state.mode === "turtle") {
         // create turtle mode editor
         modeEditor = new TurtleEditor({ref: "modeEditor", turtleModelCode: this.props.turtleModelCode,
                                       turtlePenDown: this.props.turtlePenDown,
-                                      turtleTestCode: this.props.turtleTestCode});
+                                      turtleTestCode: this.props.turtleTestCode, _: translator});
       }
       if (["var", "unit", "turtle"].indexOf(this.state.mode) !== -1) {
        executableEditor = new ExecutableEditor({ref: "executableEditor", programmingLang: this.props.programmingLang,
-                                                executableCode: this.props.executableCode});
+                                                executableCode: this.props.executableCode, _: translator});
       }
       var testButton;
       if (window.ParsonsWidget) {
-        testButton = new TestButton({editor: this});
+        testButton = new TestButton({editor: this, _: translator});
       }
       return (
         <div className={"jsparsons-editor-container jsparsons-" + this.state.mode + "-editor"}>
@@ -242,9 +262,10 @@
       var varchecks = [];
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, update: function(i, name, val, valtype) {
-            this._updateVariable(i, name, val, valtype);
-          }.bind(this)}));
+        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, _: translator,
+            update: function(i, name, val, valtype) {
+              this._updateVariable(i, name, val, valtype);
+            }.bind(this)}));
       }
       return (
         <tr>
