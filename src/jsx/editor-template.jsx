@@ -3,7 +3,27 @@
 
   var TRANSLATIONS = {
     "en": {
-
+      GRADING_TYPE: "Select the type of grading",
+      LINE_GRADING: "Line-based grading",
+      VAR_GRADING: "Variable Check grading",
+      UNITTEST_GRADING: "Unit test grading",
+      TURTLE_GRADING: "Turtle graphics grading",
+      LINE_GRADING_DESC: "Grading and feedback is based on the exact order and indentation of the lines of code.",
+      VAR_GRADING_DESC: "Grading and feedback is based on executing the student code, and then comparing variable values to correct variable values.",
+      UNITTEST_GRADING_DESC: "Grading and feedback is based on executing a set of unit tests on the student code.",
+      TURTLE_GRADING_DESC: "Grading and feedback is based on the path drawn by a turtle controlled by executing the student code. The path is compared to a path drawn by a model answer code.",
+      CODELINES: "Code fragments to construct solution from",
+      SELECT_LANG: "Select a programming language:",
+      OTHER_LANG: "Other",
+      VAR_CHECK_CONF: "Variable check configuration",
+      LINES_TO_SHOW: "Lines of code shown to student.",
+      LINES_INSTRUCTIONS: "Note, that the order indicates the correct order and that two spaces at the beginning of a line indicates an indentation of one step.",
+      PREVIEW_TITLE: "Parsons Problem Preview",
+      RESET: "Reset",
+      FEEDBACK: "Feedback",
+      TEST_BUTTON: "Test your configuration",
+      FEEDBACK_TITLE: "Feedback from testing your program:",
+      SOLVED_FEEDBACK: "Good, you solved the assignment!"
     },
     "fi": {
 
@@ -38,12 +58,13 @@
       return { mode: this.props.mode || "line"};
     },
     render: function() {
-      var codelineEditor = new CodelineEditor({mode: this.state.mode,
+      var translator = getTranslator(this.props.language),
+          codelineEditor = new CodelineEditor({mode: this.state.mode,
                                                 codelines: this.props.codelines,
-                                                ref: "codelineEditor"}),
+                                                ref: "codelineEditor", _: translator}),
           executableEditor,
-          modeEditor,
-          translator = getTranslator(this.props.language);
+          modeEditor;
+
       if (this.state.mode === "var") {
         modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests, _: translator});
       } else if (this.state.mode === "unit") {
@@ -62,39 +83,38 @@
       if (window.ParsonsWidget) {
         testButton = new TestButton({editor: this, _: translator});
       }
+      var _ = translator;
       return (
         <div className={"jsparsons-editor-container jsparsons-" + this.state.mode + "-editor"}>
-          <h2>Select the type of grading</h2>
+          <h2>{_("GRADING_TYPE")}</h2>
           <div className="jsparsons-mode-choice jsparsons-component-container">
             <ul>
               <li data-type="line" onClick={this._modeChange} className={(this.state.mode === "line")?"selected":""}>
                 <span className={(this.state.mode === "line")?"fa fa-check fa-3x":""}></span>
-                <h4>Line-based grading</h4>
-                <p>Grading and feedback is based on the exact order and indentation of the lines of code.</p>
+                <h4>{_("LINE_GRADING")}</h4>
+                <p>{_("LINE_GRADING_DESC")}</p>
               </li>
 
               <li data-type="var" onClick={this._modeChange} className={(this.state.mode === "var")?"selected":""}>
                 <span className={(this.state.mode === "var")?"fa fa-check fa-3x":""}></span>
-                <h4>Variable Check grading</h4>
-                <p>Grading and feedback is based on executing the student code, and then comparing variable
-                  values to correct variable values.</p>
+                <h4>{_("VAR_GRADING")}</h4>
+                <p>{_("VAR_GRADING_DESC")}</p>
               </li>
 
               <li data-type="unit" onClick={this._modeChange} className={(this.state.mode === "unit")?"selected":""}>
                 <span className={(this.state.mode === "unit")?"fa fa-check fa-3x":""}></span>
-                <h4>Unit test grading</h4>
-                <p>Grading and feedback is based on executing a set of unit tests on the student code.</p>
+                <h4>{_("UNITTEST_GRADING")}</h4>
+                <p>{_("UNITTEST_GRADING_DESC")}</p>
               </li>
 
               <li data-type="turtle" onClick={this._modeChange} className={(this.state.mode === "turtle")?"selected":""}>
                 <span className={(this.state.mode === "turtle")?"fa fa-check fa-3x":""}></span>
-                <h4>Turtle graphics grading</h4>
-                <p>Grading and feedback is based on the path drawn by a turtle controlled by executing the student
-                code. The path is compared to a path drawn by a model answer code.</p>
+                <h4>{_("TURTLE_GRADING")}</h4>
+                <p>{_("TURTLE_GRADING_DESC")}</p>
               </li>
             </ul>
           </div>
-          <h2>Code fragments to construct solution from</h2>
+          <h2>{_("CODELINES")}</h2>
           <div className="jsparsons-codelines-container jsparsons-component-container">
             {codelineEditor}
             {executableEditor}
@@ -117,11 +137,10 @@
       return {codelines: (this.props.codelines || []).join("\n")}
     },
     render: function() {
-      var instructions = "Lines of code shown to student.";
+      var _ = this.props._;
+      var instructions = _("LINES_TO_SHOW");
       if (this.props.mode === "line") {
-        instructions += "\nNote, that the order indicates the correct order and that two spaces at " +
-                        " the beginning of a line indicates an " +
-                        "indentation of one step.";
+        instructions += "\n" + _("LINES_INSTRUCTIONS");
       }
       return (
         <div className="jsparsons-codelines jsparsons-component jsparsons-left">
@@ -152,14 +171,15 @@
               executableCode: this.props.executableCode};
     },
     render: function() {
+      var _ = this.props._;
       return (
         <div className="jsparsons-executable-editor jsparsons-component jsparsons-right">
-          <p className="jsparsons-instructions">Select a programming language:
+          <p className="jsparsons-instructions">{_("SELECT_LANG")}
             <select name="prog-lang" value={this.state.programmingLang} onChange={this._langChanged}>
               <option value="python">Python</option>
               <option value="pseudo">Pseudo</option>
               <option value="java">Java</option>
-              <option value="other">Other</option>
+              <option value="other">{_("OTHER_LANG")}</option>
             </select>
           </p>
           <textarea rows="10" disabled={this.state.programmingLang === "python"} className={"jsparsons-" + this.state.programmingLang}
@@ -186,13 +206,14 @@
       this.setState({vartests: newvartests});
     },
     render: function() {
-      var vartests = [];
+      var _ = this.props._,
+          vartests = [];
       for (var i = 0; i < this.state.vartests.length; i++) {
         vartests.push(new VarCheckTest($.extend({ref: "varcheck" + i}, this.state.vartests[i])));
       }
       return (
         <div className="jsparsons-mode-editor">
-          <h2><span className="fa fa-tasks"/>Variable check configuration</h2>
+          <h2><span className="fa fa-tasks"/>{_("VAR_CHECK_CONF")}</h2>
           <div className="jsparsons-var-editor">
             <table>
               <thead>
@@ -359,7 +380,7 @@
             <div className="jsparsons-component jsparsons-left">
               <textarea rows="10" value={this.state.unittests} onChange={this._testsChanged}></textarea>
             </div>
-            <p className="jsparsons-component jsparsons-right">Instructions...</p>
+            <p className="jsparsons-component jsparsons-right">TODO: Instructions...</p>
           </div>
         </div>
       )
@@ -439,28 +460,29 @@
       if (fb.length) {
         this.setState({feedback: fb.join('\n')});
       } else if (fb.feedback) {
-        this.setState({feedback: "<h2>Feedback from testing your program:</h2>" + fb.feedback});
+        this.setState({feedback: "<h2>" + this.props._("FEEDBACK_TITLE") + "</h2>" + fb.feedback});
       } else {
-        this.setState({feedback: "Good, you solved the assignment!"});
+        this.setState({feedback: this.props._("SOLVED_FEEDBACK")});
       }
     },
     render: function() {
+      var _ = this.props._;
       return (
         <div>
           <div className={(this.state.visible?"visible ":"") + "jsparsons-preview"}>
             <button onClick={this._close}><span className="fa fa-close fa-2x" />Close</button>
-            <h3>Parsons Problem Preview</h3>
+            <h3>{_("PREVIEW_TITLE")}</h3>
             <div className="jsparsons-container">
               <div id="jsparsons-preview-source" className="sortable-code jsparsons-source"></div>
               <div id="jsparsons-preview-target" className="sortable-code jsparsons-target"></div>
             </div>
             <div className="jsparsons-container">
-              <div onClick={this._resetWidget}>Reset</div>
-              <div onClick={this._showWidgetFeedback}>Feedback</div>
+              <div onClick={this._resetWidget}>{_("RESET")}</div>
+              <div onClick={this._showWidgetFeedback}>{_("FEEDBACK")}</div>
             </div>
             <div className="jsparsons-feedback" dangerouslySetInnerHTML={{__html:this.state.feedback}}></div>
           </div>
-          <div className="jsparsons-test-button" onClick={this.testWidget}>Test you configuration</div>
+          <div className="jsparsons-test-button" onClick={this.testWidget}>{_("TEST_BUTTON")}</div>
         </div>
       );
     }

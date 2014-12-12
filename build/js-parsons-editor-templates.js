@@ -3,7 +3,27 @@
 
   var TRANSLATIONS = {
     "en": {
-
+      GRADING_TYPE: "Select the type of grading",
+      LINE_GRADING: "Line-based grading",
+      VAR_GRADING: "Variable Check grading",
+      UNITTEST_GRADING: "Unit test grading",
+      TURTLE_GRADING: "Turtle graphics grading",
+      LINE_GRADING_DESC: "Grading and feedback is based on the exact order and indentation of the lines of code.",
+      VAR_GRADING_DESC: "Grading and feedback is based on executing the student code, and then comparing variable values to correct variable values.",
+      UNITTEST_GRADING_DESC: "Grading and feedback is based on executing a set of unit tests on the student code.",
+      TURTLE_GRADING_DESC: "Grading and feedback is based on the path drawn by a turtle controlled by executing the student code. The path is compared to a path drawn by a model answer code.",
+      CODELINES: "Code fragments to construct solution from",
+      SELECT_LANG: "Select a programming language:",
+      OTHER_LANG: "Other",
+      VAR_CHECK_CONF: "Variable check configuration",
+      LINES_TO_SHOW: "Lines of code shown to student.",
+      LINES_INSTRUCTIONS: "Note, that the order indicates the correct order and that two spaces at the beginning of a line indicates an indentation of one step.",
+      PREVIEW_TITLE: "Parsons Problem Preview",
+      RESET: "Reset",
+      FEEDBACK: "Feedback",
+      TEST_BUTTON: "Test your configuration",
+      FEEDBACK_TITLE: "Feedback from testing your program:",
+      SOLVED_FEEDBACK: "Good, you solved the assignment!"
     },
     "fi": {
 
@@ -38,12 +58,13 @@
       return { mode: this.props.mode || "line"};
     },
     render: function() {
-      var codelineEditor = new CodelineEditor({mode: this.state.mode,
+      var translator = getTranslator(this.props.language),
+          codelineEditor = new CodelineEditor({mode: this.state.mode,
                                                 codelines: this.props.codelines,
-                                                ref: "codelineEditor"}),
+                                                ref: "codelineEditor", _: translator}),
           executableEditor,
-          modeEditor,
-          translator = getTranslator(this.props.language);
+          modeEditor;
+
       if (this.state.mode === "var") {
         modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests, _: translator});
       } else if (this.state.mode === "unit") {
@@ -62,39 +83,38 @@
       if (window.ParsonsWidget) {
         testButton = new TestButton({editor: this, _: translator});
       }
+      var _ = translator;
       return (
         React.DOM.div({className: "jsparsons-editor-container jsparsons-" + this.state.mode + "-editor"}, 
-          React.DOM.h2(null, "Select the type of grading"), 
+          React.DOM.h2(null, _("GRADING_TYPE")), 
           React.DOM.div({className: "jsparsons-mode-choice jsparsons-component-container"}, 
             React.DOM.ul(null, 
               React.DOM.li({'data-type': "line", onClick: this._modeChange, className: (this.state.mode === "line")?"selected":""}, 
                 React.DOM.span({className: (this.state.mode === "line")?"fa fa-check fa-3x":""}), 
-                React.DOM.h4(null, "Line-based grading"), 
-                React.DOM.p(null, "Grading and feedback is based on the exact order and indentation of the lines of code.")
+                React.DOM.h4(null, _("LINE_GRADING")), 
+                React.DOM.p(null, _("LINE_GRADING_DESC"))
               ), 
 
               React.DOM.li({'data-type': "var", onClick: this._modeChange, className: (this.state.mode === "var")?"selected":""}, 
                 React.DOM.span({className: (this.state.mode === "var")?"fa fa-check fa-3x":""}), 
-                React.DOM.h4(null, "Variable Check grading"), 
-                React.DOM.p(null, "Grading and feedback is based on executing the student code, and then comparing variable" + ' ' +
-                  "values to correct variable values.")
+                React.DOM.h4(null, _("VAR_GRADING")), 
+                React.DOM.p(null, _("VAR_GRADING_DESC"))
               ), 
 
               React.DOM.li({'data-type': "unit", onClick: this._modeChange, className: (this.state.mode === "unit")?"selected":""}, 
                 React.DOM.span({className: (this.state.mode === "unit")?"fa fa-check fa-3x":""}), 
-                React.DOM.h4(null, "Unit test grading"), 
-                React.DOM.p(null, "Grading and feedback is based on executing a set of unit tests on the student code.")
+                React.DOM.h4(null, _("UNITTEST_GRADING")), 
+                React.DOM.p(null, _("UNITTEST_GRADING_DESC"))
               ), 
 
               React.DOM.li({'data-type': "turtle", onClick: this._modeChange, className: (this.state.mode === "turtle")?"selected":""}, 
                 React.DOM.span({className: (this.state.mode === "turtle")?"fa fa-check fa-3x":""}), 
-                React.DOM.h4(null, "Turtle graphics grading"), 
-                React.DOM.p(null, "Grading and feedback is based on the path drawn by a turtle controlled by executing the student" + ' ' +
-                "code. The path is compared to a path drawn by a model answer code.")
+                React.DOM.h4(null, _("TURTLE_GRADING")), 
+                React.DOM.p(null, _("TURTLE_GRADING_DESC"))
               )
             )
           ), 
-          React.DOM.h2(null, "Code fragments to construct solution from"), 
+          React.DOM.h2(null, _("CODELINES")), 
           React.DOM.div({className: "jsparsons-codelines-container jsparsons-component-container"}, 
             codelineEditor, 
             executableEditor
@@ -117,11 +137,10 @@
       return {codelines: (this.props.codelines || []).join("\n")}
     },
     render: function() {
-      var instructions = "Lines of code shown to student.";
+      var _ = this.props._;
+      var instructions = _("LINES_TO_SHOW");
       if (this.props.mode === "line") {
-        instructions += "\nNote, that the order indicates the correct order and that two spaces at " +
-                        " the beginning of a line indicates an " +
-                        "indentation of one step.";
+        instructions += "\n" + _("LINES_INSTRUCTIONS");
       }
       return (
         React.DOM.div({className: "jsparsons-codelines jsparsons-component jsparsons-left"}, 
@@ -152,14 +171,15 @@
               executableCode: this.props.executableCode};
     },
     render: function() {
+      var _ = this.props._;
       return (
         React.DOM.div({className: "jsparsons-executable-editor jsparsons-component jsparsons-right"}, 
-          React.DOM.p({className: "jsparsons-instructions"}, "Select a programming language:", 
+          React.DOM.p({className: "jsparsons-instructions"}, _("SELECT_LANG"), 
             React.DOM.select({name: "prog-lang", value: this.state.programmingLang, onChange: this._langChanged}, 
               React.DOM.option({value: "python"}, "Python"), 
               React.DOM.option({value: "pseudo"}, "Pseudo"), 
               React.DOM.option({value: "java"}, "Java"), 
-              React.DOM.option({value: "other"}, "Other")
+              React.DOM.option({value: "other"}, _("OTHER_LANG"))
             )
           ), 
           React.DOM.textarea({rows: "10", disabled: this.state.programmingLang === "python", className: "jsparsons-" + this.state.programmingLang, 
@@ -186,13 +206,14 @@
       this.setState({vartests: newvartests});
     },
     render: function() {
-      var vartests = [];
+      var _ = this.props._,
+          vartests = [];
       for (var i = 0; i < this.state.vartests.length; i++) {
         vartests.push(new VarCheckTest($.extend({ref: "varcheck" + i}, this.state.vartests[i])));
       }
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
-          React.DOM.h2(null, React.DOM.span({className: "fa fa-tasks"}), "Variable check configuration"), 
+          React.DOM.h2(null, React.DOM.span({className: "fa fa-tasks"}), _("VAR_CHECK_CONF")), 
           React.DOM.div({className: "jsparsons-var-editor"}, 
             React.DOM.table(null, 
               React.DOM.thead(null, 
@@ -359,7 +380,7 @@
             React.DOM.div({className: "jsparsons-component jsparsons-left"}, 
               React.DOM.textarea({rows: "10", value: this.state.unittests, onChange: this._testsChanged})
             ), 
-            React.DOM.p({className: "jsparsons-component jsparsons-right"}, "Instructions...")
+            React.DOM.p({className: "jsparsons-component jsparsons-right"}, "TODO: Instructions...")
           )
         )
       )
@@ -439,28 +460,29 @@
       if (fb.length) {
         this.setState({feedback: fb.join('\n')});
       } else if (fb.feedback) {
-        this.setState({feedback: "<h2>Feedback from testing your program:</h2>" + fb.feedback});
+        this.setState({feedback: "<h2>" + this.props._("FEEDBACK_TITLE") + "</h2>" + fb.feedback});
       } else {
-        this.setState({feedback: "Good, you solved the assignment!"});
+        this.setState({feedback: this.props._("SOLVED_FEEDBACK")});
       }
     },
     render: function() {
+      var _ = this.props._;
       return (
         React.DOM.div(null, 
           React.DOM.div({className: (this.state.visible?"visible ":"") + "jsparsons-preview"}, 
             React.DOM.button({onClick: this._close}, React.DOM.span({className: "fa fa-close fa-2x"}), "Close"), 
-            React.DOM.h3(null, "Parsons Problem Preview"), 
+            React.DOM.h3(null, _("PREVIEW_TITLE")), 
             React.DOM.div({className: "jsparsons-container"}, 
               React.DOM.div({id: "jsparsons-preview-source", className: "sortable-code jsparsons-source"}), 
               React.DOM.div({id: "jsparsons-preview-target", className: "sortable-code jsparsons-target"})
             ), 
             React.DOM.div({className: "jsparsons-container"}, 
-              React.DOM.div({onClick: this._resetWidget}, "Reset"), 
-              React.DOM.div({onClick: this._showWidgetFeedback}, "Feedback")
+              React.DOM.div({onClick: this._resetWidget}, _("RESET")), 
+              React.DOM.div({onClick: this._showWidgetFeedback}, _("FEEDBACK"))
             ), 
             React.DOM.div({className: "jsparsons-feedback", dangerouslySetInnerHTML: {__html:this.state.feedback}})
           ), 
-          React.DOM.div({className: "jsparsons-test-button", onClick: this.testWidget}, "Test you configuration")
+          React.DOM.div({className: "jsparsons-test-button", onClick: this.testWidget}, _("TEST_BUTTON"))
         )
       );
     }
