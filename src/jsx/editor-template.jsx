@@ -18,6 +18,19 @@
       VAR_CHECK_CONF: "Variable check configuration",
       LINES_TO_SHOW: "Lines of code shown to student.",
       LINES_INSTRUCTIONS: "Note, that the order indicates the correct order and that two spaces at the beginning of a line indicates an indentation of one step.",
+      VAR_DESCRIPTION: "Description",
+      VAR_CODE_BEFORE: "Code before",
+      VAR_CODE_AFTER: "Code after",
+      VAR_CHECKS: "Variable Checks",
+      ADD_TESTCASE: "Add testcase",
+      TYPE_INT: "Integer",
+      TYPE_DECIMAL: "Decimal",
+      TYPE_BOOLEAN: "Boolean",
+      TYPE_STRING: "String",
+      TURTLE_CONF: "Turtle configuration",
+      TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
+      TURTLE_PENDOWN: "Is turtle pen down initially",
+      TURTLE_CODE_AFTER_INSTR: "Python code to test the student solution which is added after the student code (use variable <code>myTurtle</code> to access the turtle object)",
       PREVIEW_TITLE: "Parsons Problem Preview",
       RESET: "Reset",
       FEEDBACK: "Feedback",
@@ -217,13 +230,17 @@
           <div className="jsparsons-var-editor">
             <table>
               <thead>
-                <tr><th>Description</th><th>Code Before</th><th>Code After</th><th>Variable Checks</th></tr>
+                <tr>
+                  <th>{_("VAR_DESCRIPTION")}</th>
+                  <th>{_("VAR_CODE_BEFORE")}</th>
+                  <th>{_("VAR_CODE_AFTER")}</th>
+                  <th>{_("VAR_CHECKS")}</th></tr>
               </thead>
               <tbody>
               {vartests}
               </tbody>
             </table>
-            <button onClick={this._addCheck}>Add testcase</button>
+            <button onClick={this._addCheck}>{_("ADD_TESTCASE")}</button>
           </div>
         </div>
       )
@@ -332,15 +349,16 @@
       this.props.update(this.props.key.replace("var", ""), this.state.varname, this.state.varvalue, evt.target.value);
     },
     render: function() {
+      var _ = this.props._;
       return (
         <div>
           <input type="text" value={this.state.varname} onChange={this._nameChanged} placeholder="name"/>
           <input type="text" value={this.state.varvalue} onChange={this._valueChanged} placeholder="value"/>
           <select value={this.state.vartype} onChange={this._typeChanged}>
-            <option value="int">Integer</option>
-            <option value="decimal">Decimal</option>
-            <option value="boolean">Boolean</option>
-            <option value="string">String</option>
+            <option value="int"></option>
+            <option value="decimal">{_("TYPE_DECIMAL")}</option>
+            <option value="boolean">{_("TYPE_BOOLEAN")}</option>
+            <option value="string">{_("TYPE_STRING")}</option>
           </select>
         </div>
       )
@@ -413,19 +431,20 @@
       this.setState({turtlePenDown: evt.target.checked});
     },
     render: function() {
+      var _ = this.props._;
       return (
         <div className="jsparsons-mode-editor">
-          <h2><span className="fa fa-bug"/>Turtle configuration</h2>
+          <h2><span className="fa fa-bug"/>{_("TURTLE_CONF")}</h2>
           <div className="jsparsons-turtle-editor jsparsons-component-container">
             <div className="jsparsons-turtle-model jsparsons-component jsparsons-left">
-              <p className="jsparsons-instructions">Python code for the model turtle pattern (you can use variable <code>modelTurtle</code> to access the turtle object):</p>
+              <p className="jsparsons-instructions">{_("TURTLE_MODEL_INSTR")}</p>
               <textarea value={this.state.turtleModelCode} onChange={this._modelCodeChanged}></textarea>
               <input type="checkbox" checked={this.state.turtlePenDown} id="jsparsons-edit-turtlepen"
                     onChange={this._penChanged}/>
-              <label htmlFor="jsparsons-edit-turtlepen">Is turtle pen down initially</label>
+              <label htmlFor="jsparsons-edit-turtlepen">{_("TURTLE_PENDOWN")}</label>
             </div>
             <div className="jsparsons-turtle-test jsparsons-component jsparsons-right">
-              <p className="jsparsons-instructions">Python code to test the student solution which is added after the student code (use variable <code>myTurtle</code> to access the turtle object):</p>
+              <p className="jsparsons-instructions">{_("TURTLE_CODE_AFTER_INSTR")}</p>
               <textarea value={this.state.turtleTestCode} onChange={this._testCodeChanged}></textarea>
             </div>
           </div>

@@ -18,6 +18,19 @@
       VAR_CHECK_CONF: "Variable check configuration",
       LINES_TO_SHOW: "Lines of code shown to student.",
       LINES_INSTRUCTIONS: "Note, that the order indicates the correct order and that two spaces at the beginning of a line indicates an indentation of one step.",
+      VAR_DESCRIPTION: "Description",
+      VAR_CODE_BEFORE: "Code before",
+      VAR_CODE_AFTER: "Code after",
+      VAR_CHECKS: "Variable Checks",
+      ADD_TESTCASE: "Add testcase",
+      TYPE_INT: "Integer",
+      TYPE_DECIMAL: "Decimal",
+      TYPE_BOOLEAN: "Boolean",
+      TYPE_STRING: "String",
+      TURTLE_CONF: "Turtle configuration",
+      TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
+      TURTLE_PENDOWN: "Is turtle pen down initially",
+      TURTLE_CODE_AFTER_INSTR: "Python code to test the student solution which is added after the student code (use variable <code>myTurtle</code> to access the turtle object)",
       PREVIEW_TITLE: "Parsons Problem Preview",
       RESET: "Reset",
       FEEDBACK: "Feedback",
@@ -217,13 +230,17 @@
           React.DOM.div({className: "jsparsons-var-editor"}, 
             React.DOM.table(null, 
               React.DOM.thead(null, 
-                React.DOM.tr(null, React.DOM.th(null, "Description"), React.DOM.th(null, "Code Before"), React.DOM.th(null, "Code After"), React.DOM.th(null, "Variable Checks"))
+                React.DOM.tr(null, 
+                  React.DOM.th(null, _("VAR_DESCRIPTION")), 
+                  React.DOM.th(null, _("VAR_CODE_BEFORE")), 
+                  React.DOM.th(null, _("VAR_CODE_AFTER")), 
+                  React.DOM.th(null, _("VAR_CHECKS")))
               ), 
               React.DOM.tbody(null, 
               vartests
               )
             ), 
-            React.DOM.button({onClick: this._addCheck}, "Add testcase")
+            React.DOM.button({onClick: this._addCheck}, _("ADD_TESTCASE"))
           )
         )
       )
@@ -332,15 +349,16 @@
       this.props.update(this.props.key.replace("var", ""), this.state.varname, this.state.varvalue, evt.target.value);
     },
     render: function() {
+      var _ = this.props._;
       return (
         React.DOM.div(null, 
           React.DOM.input({type: "text", value: this.state.varname, onChange: this._nameChanged, placeholder: "name"}), 
           React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: "value"}), 
           React.DOM.select({value: this.state.vartype, onChange: this._typeChanged}, 
-            React.DOM.option({value: "int"}, "Integer"), 
-            React.DOM.option({value: "decimal"}, "Decimal"), 
-            React.DOM.option({value: "boolean"}, "Boolean"), 
-            React.DOM.option({value: "string"}, "String")
+            React.DOM.option({value: "int"}), 
+            React.DOM.option({value: "decimal"}, _("TYPE_DECIMAL")), 
+            React.DOM.option({value: "boolean"}, _("TYPE_BOOLEAN")), 
+            React.DOM.option({value: "string"}, _("TYPE_STRING"))
           )
         )
       )
@@ -413,19 +431,20 @@
       this.setState({turtlePenDown: evt.target.checked});
     },
     render: function() {
+      var _ = this.props._;
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
-          React.DOM.h2(null, React.DOM.span({className: "fa fa-bug"}), "Turtle configuration"), 
+          React.DOM.h2(null, React.DOM.span({className: "fa fa-bug"}), _("TURTLE_CONF")), 
           React.DOM.div({className: "jsparsons-turtle-editor jsparsons-component-container"}, 
             React.DOM.div({className: "jsparsons-turtle-model jsparsons-component jsparsons-left"}, 
-              React.DOM.p({className: "jsparsons-instructions"}, "Python code for the model turtle pattern (you can use variable ", React.DOM.code(null, "modelTurtle"), " to access the turtle object):"), 
+              React.DOM.p({className: "jsparsons-instructions"}, _("TURTLE_MODEL_INSTR")), 
               React.DOM.textarea({value: this.state.turtleModelCode, onChange: this._modelCodeChanged}), 
               React.DOM.input({type: "checkbox", checked: this.state.turtlePenDown, id: "jsparsons-edit-turtlepen", 
                     onChange: this._penChanged}), 
-              React.DOM.label({htmlFor: "jsparsons-edit-turtlepen"}, "Is turtle pen down initially")
+              React.DOM.label({htmlFor: "jsparsons-edit-turtlepen"}, _("TURTLE_PENDOWN"))
             ), 
             React.DOM.div({className: "jsparsons-turtle-test jsparsons-component jsparsons-right"}, 
-              React.DOM.p({className: "jsparsons-instructions"}, "Python code to test the student solution which is added after the student code (use variable ", React.DOM.code(null, "myTurtle"), " to access the turtle object):"), 
+              React.DOM.p({className: "jsparsons-instructions"}, _("TURTLE_CODE_AFTER_INSTR")), 
               React.DOM.textarea({value: this.state.turtleTestCode, onChange: this._testCodeChanged})
             )
           )
