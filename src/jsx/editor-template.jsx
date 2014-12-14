@@ -30,16 +30,51 @@
       TURTLE_CONF: "Turtle configuration",
       TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
       TURTLE_PENDOWN: "Is turtle pen down initially",
-      TURTLE_CODE_AFTER_INSTR: "Python code to test the student solution which is added after the student code (use variable <code>myTurtle</code> to access the turtle object)",
+      TURTLE_CODE_AFTER_INSTR: "Python code to test the student solution which is added after the student code (use variable myTurtle to access the turtle object)",
       PREVIEW_TITLE: "Parsons Problem Preview",
       RESET: "Reset",
       FEEDBACK: "Feedback",
       TEST_BUTTON: "Test your configuration",
+      CLOSE: "Close",
       FEEDBACK_TITLE: "Feedback from testing your program:",
       SOLVED_FEEDBACK: "Good, you solved the assignment!"
     },
     "fi": {
-
+      GRADING_TYPE: "Valitse arvostelutapa",
+      LINE_GRADING: "Rivipohjainen arvostelu",
+      VAR_GRADING: "Muuttujien vertailu",
+      UNITTEST_GRADING: "Yksikkötestaus",
+      TURTLE_GRADING: "Kilpikonnagrafiikka",
+      LINE_GRADING_DESC: "Arvostelu ja palaute perustuvat koodirivien järjestykseen ja sisennykseen.",
+      VAR_GRADING_DESC: "Arvostelu ja palaute perustuvat opiskelijan ohjelman suoritukseen ja muuttujien arvojen vertailuun suorituksen jälkeen.",
+      UNITTEST_GRADING_DESC: "Arvostelu ja palaute perustuvat yksikkötestien ajamiseen opiskelijan ohjelmalle.",
+      TURTLE_GRADING_DESC: "Arvostelu ja palaute perustuvat kilpikonnan piirtämään polkuun opiskelijan ohjelmaa suoritettaessa. Polkua verrataan mallivastauksen piirtämään polkuun.",
+      CODELINES: "Koodirivit, joista vastaus rakennetaan",
+      SELECT_LANG: "Valitse ohjelmointikieli:",
+      OTHER_LANG: "Muu",
+      VAR_CHECK_CONF: "Muuttujien vertailun asetukset",
+      LINES_TO_SHOW: "Opiskelijalle näytettävät koodirivit.",
+      LINES_INSTRUCTIONS: "Huomaa, että rivien järjestys määrää oikean ratkaisun. Rivien sisennyksen voi määrätä välilyönneillä.",
+      VAR_DESCRIPTION: "Kuvaus",
+      VAR_CODE_BEFORE: "Koodi ennen",
+      VAR_CODE_AFTER: "Koodi jälkeen",
+      VAR_CHECKS: "Muuttujien vertailut",
+      ADD_TESTCASE: "Lisää testitapaus",
+      TYPE_INT: "Kokonaisluku",
+      TYPE_DECIMAL: "Desimaaliluku",
+      TYPE_BOOLEAN: "Totuusarvo",
+      TYPE_STRING: "Merkkijono",
+      TURTLE_CONF: "Kilpikonna-asetukset",
+      TURTLE_MODEL_INSTR: "Python-koodi, joka piirtää kilpikonnan mallipolun (kilpikonna on muuttujassa modelTurtle):",
+      TURTLE_PENDOWN: "Kilpikonnan kynä alhalla ohjelman alussa",
+      TURTLE_CODE_AFTER_INSTR: "Python-koodi joka suoritetaan opiskelijan ohjelman jälkeen (kilpikonna on muuttujassa myTurtle)",
+      PREVIEW_TITLE: "Tehtävän esikatselu",
+      RESET: "Aloita alusta",
+      FEEDBACK: "Palaute",
+      TEST_BUTTON: "Kokeile tehtävääsi",
+      CLOSE: "Sulje",
+      FEEDBACK_TITLE: "Palaute ohjelmasi testauksesta:",
+      SOLVED_FEEDBACK: "Hienoa, ratkaisit tehtävän!"
     }
   };
   var getTranslator = function(lang) {
@@ -94,7 +129,7 @@
       }
       var testButton;
       if (window.ParsonsWidget) {
-        testButton = new TestButton({editor: this, _: translator});
+        testButton = new TestButton({editor: this, _: translator, language: this.props.language});
       }
       var _ = translator;
       return (
@@ -458,7 +493,8 @@
       var opts = this.props.editor.getExerciseConfig();
       var parson = new ParsonsWidget($.extend({
           'sortableId': 'jsparsons-preview-target',
-          'trashId': 'jsparsons-preview-source'
+          'trashId': 'jsparsons-preview-source',
+          'lang': this.props.language
       }, opts));
       parson.init(opts.codelines.join('\n'));
       parson.shuffleLines();
@@ -489,7 +525,7 @@
       return (
         <div>
           <div className={(this.state.visible?"visible ":"") + "jsparsons-preview"}>
-            <button onClick={this._close}><span className="fa fa-close fa-2x" />Close</button>
+            <button onClick={this._close}><span className="fa fa-close fa-2x" />{_("CLOSE")}</button>
             <h3>{_("PREVIEW_TITLE")}</h3>
             <div className="jsparsons-container">
               <div id="jsparsons-preview-source" className="sortable-code jsparsons-source"></div>
