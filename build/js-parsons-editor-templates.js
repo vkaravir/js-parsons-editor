@@ -27,6 +27,8 @@
       TYPE_DECIMAL: "Decimal",
       TYPE_BOOLEAN: "Boolean",
       TYPE_STRING: "String",
+      NAME: "Name",
+      VALUE: "Value",
       TURTLE_CONF: "Turtle configuration",
       TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
       TURTLE_PENDOWN: "Is turtle pen down initially",
@@ -64,6 +66,8 @@
       TYPE_DECIMAL: "Desimaaliluku",
       TYPE_BOOLEAN: "Totuusarvo",
       TYPE_STRING: "Merkkijono",
+      NAME: "Nimi",
+      VALUE: "Arvo",
       TURTLE_CONF: "Kilpikonna-asetukset",
       TURTLE_MODEL_INSTR: "Python-koodi, joka piirtää kilpikonnan mallipolun (kilpikonna on muuttujassa modelTurtle):",
       TURTLE_PENDOWN: "Kilpikonnan kynä alhalla ohjelman alussa",
@@ -101,6 +105,12 @@
         node = node.parentNode;
       }
       this.setState({mode: node.dataset.type});
+      this.props.onchange();
+    },
+    componentWillMount: function() {
+      if (!(typeof this.props.onchange === "function")) {
+        this.props.onchange = function() {};
+      }
     },
     getInitialState: function() {
       return { mode: this.props.mode || "line"};
@@ -109,27 +119,32 @@
       var translator = getTranslator(this.props.language),
           codelineEditor = new CodelineEditor({mode: this.state.mode,
                                                 codelines: this.props.codelines,
-                                                ref: "codelineEditor", _: translator}),
+                                                ref: "codelineEditor", _: translator,
+                                                onchange: this.props.onchange}),
           executableEditor,
           modeEditor;
 
       if (this.state.mode === "var") {
-        modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests, _: translator});
+        modeEditor = new VarCheckEditor({ref: "modeEditor", vartests: this.props.vartests,
+                                        _: translator, onchange: this.props.onchange});
       } else if (this.state.mode === "unit") {
-        modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests, _: translator});
+        modeEditor = new UnittestEditor({ref: "modeEditor", unittests: this.props.unittests,
+                                        _: translator, onchange: this.props.onchange});
       } else if (this.state.mode === "turtle") {
         // create turtle mode editor
         modeEditor = new TurtleEditor({ref: "modeEditor", turtleModelCode: this.props.turtleModelCode,
                                       turtlePenDown: this.props.turtlePenDown,
-                                      turtleTestCode: this.props.turtleTestCode, _: translator});
+                                      turtleTestCode: this.props.turtleTestCode,
+                                      _: translator, onchange: this.props.onchange});
       }
       if (["var", "unit", "turtle"].indexOf(this.state.mode) !== -1) {
        executableEditor = new ExecutableEditor({ref: "executableEditor", programmingLang: this.props.programmingLang,
-                                                executableCode: this.props.executableCode, _: translator});
+                                                executableCode: this.props.executableCode,
+                                                _: translator, onchange: this.props.onchange});
       }
       var testButton;
       if (window.ParsonsWidget) {
-        testButton = new TestButton({editor: this, _: translator, language: this.props.language});
+        testButton = new TestButton({editor: this, _: translator, language: this.props.language, onchange: this.props.onchange});
       }
       var _ = translator;
       return (
@@ -180,6 +195,7 @@
     },
     _codeChange: function(evt) {
       this.setState({codelines: evt.target.value});
+      this.props.onchange();
     },
     getInitialState: function() {
       return {codelines: (this.props.codelines || []).join("\n")}
@@ -202,9 +218,11 @@
   var ExecutableEditor = React.createClass({displayName: 'ExecutableEditor',
     _langChanged: function(evt) {
       this.setState({programmingLang: evt.target.value});
+      this.props.onchange();
     },
     _codeChanged: function(evt) {
       this.setState({executableCode: evt.target.value});
+      this.props.onchange();
     },
     getConfig: function() {
       if (this.state.programmingLang !== "python") {
@@ -247,17 +265,18 @@
       return { vartests: vartests };
     },
     getInitialState: function() {
-      return { vartests: this.props.vartests || [new VarCheckTest()] };
+      return { vartests: this.props.vartests || [new VarCheckTest({_: this.props._, onchange: this.props.onchange})] };
     },
     _addCheck: function() {
-      var newvartests = this.state.vartests.concat([new VarCheckTest()]);
+      var newvartests = this.state.vartests.concat([new VarCheckTest({_: this.props._, onchange: this.props.onchange})]);
       this.setState({vartests: newvartests});
+      this.props.onchange();
     },
     render: function() {
       var _ = this.props._,
           vartests = [];
       for (var i = 0; i < this.state.vartests.length; i++) {
-        vartests.push(new VarCheckTest($.extend({ref: "varcheck" + i}, this.state.vartests[i])));
+        vartests.push(new VarCheckTest($.extend({ref: "varcheck" + i, _: this.props._, onchange: this.props.onchange}, this.state.vartests[i])));
       }
       return (
         React.DOM.div({className: "jsparsons-mode-editor"}, 
@@ -306,16 +325,20 @@
     },
     _messageChanged: function(evt) {
       this.setState({message: evt.target.value});
+      this.props.onchange();
     },
     _initCodeChanged: function(evt) {
       this.setState({initcode: evt.target.value});
+      this.props.onchange();
     },
     _codeChanged: function(evt) {
       this.setState({code: evt.target.value});
+      this.props.onchange();
     },
     _addVariable: function(evt) {
       var newVars = this.state.variables.concat([{key: "", value: ""}]);
       this.setState({variables: newVars});
+      this.props.onchange();
     },
     _updateVariable: function(i, name, value, valtype) {
       this.state.variables[i].key = name;
@@ -330,12 +353,14 @@
         newVal = "" + value;
       }
       this.state.variables[i].value = newVal;
+      this.props.onchange();
     },
     render: function() {
       var varchecks = [];
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
-        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, _: translator,
+        varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, _: this.props._,
+            onchange: this.props.onchange,
             update: function(i, name, val, valtype) {
               this._updateVariable(i, name, val, valtype);
             }.bind(this)}));
@@ -374,21 +399,24 @@
     _nameChanged: function(evt) {
       this.setState({varname: evt.target.value});
       this.props.update(this.props.key.replace("var", ""), evt.target.value, this.state.varvalue, this.state.vartype);
+      this.props.onchange();
     },
     _valueChanged: function(evt) {
       this.setState({varvalue: evt.target.value});
       this.props.update(this.props.key.replace("var", ""), this.state.varname, evt.target.value, this.state.vartype);
+      this.props.onchange();
     },
     _typeChanged: function(evt) {
       this.setState({vartype: evt.target.value});
       this.props.update(this.props.key.replace("var", ""), this.state.varname, this.state.varvalue, evt.target.value);
+      this.props.onchange();
     },
     render: function() {
       var _ = this.props._;
       return (
         React.DOM.div(null, 
-          React.DOM.input({type: "text", value: this.state.varname, onChange: this._nameChanged, placeholder: "name"}), 
-          React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: "value"}), 
+          React.DOM.input({type: "text", value: this.state.varname, onChange: this._nameChanged, placeholder: _("NAME")}), 
+          React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: _("VALUE")}), 
           React.DOM.select({value: this.state.vartype, onChange: this._typeChanged}, 
             React.DOM.option({value: "int"}), 
             React.DOM.option({value: "decimal"}, _("TYPE_DECIMAL")), 
@@ -424,6 +452,7 @@
     },
     _testsChanged: function(evt) {
       this.setState({unittests: evt.target.value});
+      this.props.onchange();
     },
     render: function() {
       return (
@@ -458,12 +487,15 @@
     },
     _modelCodeChanged: function(evt) {
       this.setState({turtleModelCode: evt.target.value});
+      this.props.onchange();
     },
     _testCodeChanged: function(evt) {
       this.setState({turtleTestCode: evt.target.value});
+      this.props.onchange();
     },
     _penChanged: function(evt) {
       this.setState({turtlePenDown: evt.target.checked});
+      this.props.onchange();
     },
     render: function() {
       var _ = this.props._;
