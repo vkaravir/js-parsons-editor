@@ -46,7 +46,7 @@ $animTiming: linear;
       margin: 0 0 0 0.5rem;
     }
     textarea.jsparsons-python {
-    background: repeating-linear-gradient(
+      background: repeating-linear-gradient(
                 -45deg,
                 $bgColor,
                 $bgColor 10px,
@@ -125,6 +125,17 @@ $animTiming: linear;
     }
   }
 }
+.jsparsons-var-editor {
+  td {
+    padding: 0.5rem;
+  }
+  .jsparsons-varchecks > div {
+    display: flex;
+    & input, & textarea {
+      margin-right: 0.5rem;
+    }
+  }
+}
 
 .jsparsons-preview {
   display: none;
@@ -158,6 +169,13 @@ $animTiming: linear;
   }
   .fa-close {
     color: darkred;
+  }
+  .jsparsons-buttons div {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid black;
+    background-color: $mainColor;
+    color: white;
   }
 }
 .jsparsons-test-button {

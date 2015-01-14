@@ -34,11 +34,11 @@
 .jsparsons-editor-container .jsparsons-component {
   width: 50%;
   padding: 0 1rem;
-  -webkit-transition: width, 0.1s, linear;
   -moz-transition: width, 0.1s, linear;
   -o-transition: width, 0.1s, linear;
+  -webkit-transition: width, 0.1s, linear;
   transition: width, 0.1s, linear;
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 /* line 38, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-editor-container .jsparsons-left {
@@ -54,7 +54,7 @@
 }
 /* line 48, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-editor-container .jsparsons-executable-editor textarea.jsparsons-python {
-  background: repeating-linear-gradient(-45deg, #eeeeee, #eeeeee 10px, #ffeeee 10px, #ffeeee 20px);
+  background: repeating-linear-gradient(-45deg, #eee, #eee 10px, #fee 10px, #fee 20px);
 }
 /* line 58, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-editor-container.jsparsons-line-editor .jsparsons-codelines {
@@ -69,7 +69,7 @@
 /* line 64, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-editor-container .jsparsons-mode-editor .jsparsons-var-editor {
   padding: 0 1rem;
-  background-color: #eeeeee;
+  background-color: #eee;
 }
 /* line 69, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-editor-container .jsparsons-mode-editor .fa {
@@ -111,27 +111,27 @@
   width: 50%;
   cursor: pointer;
   position: relative;
-  background-color: #eeeeee;
+  background-color: #eee;
   padding: 0.5rem 1rem 0.5rem 3rem;
-  -webkit-transition: background-color, 0.1s, linear;
   -moz-transition: background-color, 0.1s, linear;
   -o-transition: background-color, 0.1s, linear;
+  -webkit-transition: background-color, 0.1s, linear;
   transition: background-color, 0.1s, linear;
 }
 /* line 108, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li span {
   left: -0.5rem;
-  -webkit-transition: left, 0.1s, linear;
   -moz-transition: left, 0.1s, linear;
   -o-transition: left, 0.1s, linear;
+  -webkit-transition: left, 0.1s, linear;
   transition: left, 0.1s, linear;
 }
 /* line 112, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-mode-choice ul li h4 {
   margin: 1rem 0 0 -1rem;
-  -webkit-transition: margin, 0.1s, linear;
   -moz-transition: margin, 0.1s, linear;
   -o-transition: margin, 0.1s, linear;
+  -webkit-transition: margin, 0.1s, linear;
   transition: margin, 0.1s, linear;
 }
 /* line 117, ../src/editor-style/sass/js-parsons-editor.scss */
@@ -149,6 +149,19 @@
 }
 
 /* line 129, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-var-editor td {
+  padding: 0.5rem;
+}
+/* line 132, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-var-editor .jsparsons-varchecks > div {
+  display: flex;
+}
+/* line 134, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-var-editor .jsparsons-varchecks > div input, .jsparsons-var-editor .jsparsons-varchecks > div textarea {
+  margin-right: 0.5rem;
+}
+
+/* line 140, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview {
   display: none;
   position: fixed;
@@ -159,39 +172,47 @@
   background-color: #fff;
   padding: 1rem;
 }
-/* line 138, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 149, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview.visible {
   display: block;
 }
-/* line 141, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 152, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-container {
   display: flex;
 }
-/* line 144, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 155, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-source {
   width: 40%;
 }
-/* line 147, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 158, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-target {
   width: 60%;
 }
-/* line 150, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 161, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview h3 {
   margin-top: 0;
   text-align: center;
 }
-/* line 154, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 165, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview button {
   position: absolute;
   left: 0.5rem;
   top: 0.5rem;
 }
-/* line 159, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 170, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .fa-close {
   color: darkred;
 }
+/* line 173, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview .jsparsons-buttons div {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: 1px solid black;
+  background-color: darkorange;
+  color: white;
+}
 
-/* line 163, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 181, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button {
   font-size: 2rem;
   text-align: center;
@@ -200,11 +221,11 @@
   padding: 1rem;
   margin-top: 0.5rem;
 }
-/* line 170, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 188, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button:active {
-  -webkit-transition: color, 0.1s, linear;
   -moz-transition: color, 0.1s, linear;
   -o-transition: color, 0.1s, linear;
+  -webkit-transition: color, 0.1s, linear;
   transition: color, 0.1s, linear;
   color: black;
 }
