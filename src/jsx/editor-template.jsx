@@ -27,8 +27,7 @@
       TYPE_DECIMAL: "Decimal",
       TYPE_BOOLEAN: "Boolean",
       TYPE_STRING: "String",
-      NAME: "Name",
-      VALUE: "Value",
+      NAME: "Variable name",
       TURTLE_CONF: "Turtle configuration",
       TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
       TURTLE_PENDOWN: "Is turtle pen down initially",
@@ -66,8 +65,7 @@
       TYPE_DECIMAL: "Desimaaliluku",
       TYPE_BOOLEAN: "Totuusarvo",
       TYPE_STRING: "Merkkijono",
-      NAME: "Nimi",
-      VALUE: "Arvo",
+      NAME: "Muuttujan nimi",
       TURTLE_CONF: "Kilpikonna-asetukset",
       TURTLE_MODEL_INSTR: "Python-koodi, joka piirtää kilpikonnan mallipolun (kilpikonna on muuttujassa modelTurtle):",
       TURTLE_PENDOWN: "Kilpikonnan kynä alhalla ohjelman alussa",
@@ -367,7 +365,7 @@
       }
       return (
         <tr>
-          <td><input type="text" value={this.state.message} onChange={this._messageChanged}/></td>
+          <td><textarea type="text" value={this.state.message} onChange={this._messageChanged}/></td>
           <td><textarea type="text" value={this.state.initcode} onChange={this._initCodeChanged}/></td>
           <td><textarea type="text" value={this.state.code} onChange={this._codeChanged}/></td>
           <td className="jsparsons-varchecks">{varchecks}<div><button onClick={this._addVariable}>+</button></div></td>
@@ -416,9 +414,9 @@
       return (
         <div>
           <input type="text" value={this.state.varname} onChange={this._nameChanged} placeholder={_("NAME")}/>
-          <input type="text" value={this.state.varvalue} onChange={this._valueChanged} placeholder={_("VALUE")}/>
+          <textarea rows="1" value={this.state.varvalue} onChange={this._valueChanged}/>
           <select value={this.state.vartype} onChange={this._typeChanged}>
-            <option value="int"></option>
+            <option value="int">{_("TYPE_INT")}</option>
             <option value="decimal">{_("TYPE_DECIMAL")}</option>
             <option value="boolean">{_("TYPE_BOOLEAN")}</option>
             <option value="string">{_("TYPE_STRING")}</option>
@@ -505,14 +503,14 @@
           <div className="jsparsons-turtle-editor jsparsons-component-container">
             <div className="jsparsons-turtle-model jsparsons-component jsparsons-left">
               <p className="jsparsons-instructions">{_("TURTLE_MODEL_INSTR")}</p>
-              <textarea value={this.state.turtleModelCode} onChange={this._modelCodeChanged}></textarea>
+              <textarea rows="3" value={this.state.turtleModelCode} onChange={this._modelCodeChanged}></textarea>
               <input type="checkbox" checked={this.state.turtlePenDown} id="jsparsons-edit-turtlepen"
                     onChange={this._penChanged}/>
               <label htmlFor="jsparsons-edit-turtlepen">{_("TURTLE_PENDOWN")}</label>
             </div>
             <div className="jsparsons-turtle-test jsparsons-component jsparsons-right">
               <p className="jsparsons-instructions">{_("TURTLE_CODE_AFTER_INSTR")}</p>
-              <textarea value={this.state.turtleTestCode} onChange={this._testCodeChanged}></textarea>
+              <textarea rows="3" value={this.state.turtleTestCode} onChange={this._testCodeChanged}></textarea>
             </div>
           </div>
         </div>
@@ -563,7 +561,7 @@
               <div id="jsparsons-preview-source" className="sortable-code jsparsons-source"></div>
               <div id="jsparsons-preview-target" className="sortable-code jsparsons-target"></div>
             </div>
-            <div className="jsparsons-container">
+            <div className="jsparsons-container jsparsons-buttons">
               <div onClick={this._resetWidget}>{_("RESET")}</div>
               <div onClick={this._showWidgetFeedback}>{_("FEEDBACK")}</div>
             </div>

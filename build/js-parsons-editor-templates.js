@@ -27,8 +27,7 @@
       TYPE_DECIMAL: "Decimal",
       TYPE_BOOLEAN: "Boolean",
       TYPE_STRING: "String",
-      NAME: "Name",
-      VALUE: "Value",
+      NAME: "Variable name",
       TURTLE_CONF: "Turtle configuration",
       TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
       TURTLE_PENDOWN: "Is turtle pen down initially",
@@ -66,8 +65,7 @@
       TYPE_DECIMAL: "Desimaaliluku",
       TYPE_BOOLEAN: "Totuusarvo",
       TYPE_STRING: "Merkkijono",
-      NAME: "Nimi",
-      VALUE: "Arvo",
+      NAME: "Muuttujan nimi",
       TURTLE_CONF: "Kilpikonna-asetukset",
       TURTLE_MODEL_INSTR: "Python-koodi, joka piirtää kilpikonnan mallipolun (kilpikonna on muuttujassa modelTurtle):",
       TURTLE_PENDOWN: "Kilpikonnan kynä alhalla ohjelman alussa",
@@ -367,7 +365,7 @@
       }
       return (
         React.DOM.tr(null, 
-          React.DOM.td(null, React.DOM.input({type: "text", value: this.state.message, onChange: this._messageChanged})), 
+          React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.message, onChange: this._messageChanged})), 
           React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.initcode, onChange: this._initCodeChanged})), 
           React.DOM.td(null, React.DOM.textarea({type: "text", value: this.state.code, onChange: this._codeChanged})), 
           React.DOM.td({className: "jsparsons-varchecks"}, varchecks, React.DOM.div(null, React.DOM.button({onClick: this._addVariable}, "+")))
@@ -416,9 +414,9 @@
       return (
         React.DOM.div(null, 
           React.DOM.input({type: "text", value: this.state.varname, onChange: this._nameChanged, placeholder: _("NAME")}), 
-          React.DOM.input({type: "text", value: this.state.varvalue, onChange: this._valueChanged, placeholder: _("VALUE")}), 
+          React.DOM.textarea({rows: "1", value: this.state.varvalue, onChange: this._valueChanged}), 
           React.DOM.select({value: this.state.vartype, onChange: this._typeChanged}, 
-            React.DOM.option({value: "int"}), 
+            React.DOM.option({value: "int"}, _("TYPE_INT")), 
             React.DOM.option({value: "decimal"}, _("TYPE_DECIMAL")), 
             React.DOM.option({value: "boolean"}, _("TYPE_BOOLEAN")), 
             React.DOM.option({value: "string"}, _("TYPE_STRING"))
@@ -505,14 +503,14 @@
           React.DOM.div({className: "jsparsons-turtle-editor jsparsons-component-container"}, 
             React.DOM.div({className: "jsparsons-turtle-model jsparsons-component jsparsons-left"}, 
               React.DOM.p({className: "jsparsons-instructions"}, _("TURTLE_MODEL_INSTR")), 
-              React.DOM.textarea({value: this.state.turtleModelCode, onChange: this._modelCodeChanged}), 
+              React.DOM.textarea({rows: "3", value: this.state.turtleModelCode, onChange: this._modelCodeChanged}), 
               React.DOM.input({type: "checkbox", checked: this.state.turtlePenDown, id: "jsparsons-edit-turtlepen", 
                     onChange: this._penChanged}), 
               React.DOM.label({htmlFor: "jsparsons-edit-turtlepen"}, _("TURTLE_PENDOWN"))
             ), 
             React.DOM.div({className: "jsparsons-turtle-test jsparsons-component jsparsons-right"}, 
               React.DOM.p({className: "jsparsons-instructions"}, _("TURTLE_CODE_AFTER_INSTR")), 
-              React.DOM.textarea({value: this.state.turtleTestCode, onChange: this._testCodeChanged})
+              React.DOM.textarea({rows: "3", value: this.state.turtleTestCode, onChange: this._testCodeChanged})
             )
           )
         )
@@ -563,7 +561,7 @@
               React.DOM.div({id: "jsparsons-preview-source", className: "sortable-code jsparsons-source"}), 
               React.DOM.div({id: "jsparsons-preview-target", className: "sortable-code jsparsons-target"})
             ), 
-            React.DOM.div({className: "jsparsons-container"}, 
+            React.DOM.div({className: "jsparsons-container jsparsons-buttons"}, 
               React.DOM.div({onClick: this._resetWidget}, _("RESET")), 
               React.DOM.div({onClick: this._showWidgetFeedback}, _("FEEDBACK"))
             ), 
