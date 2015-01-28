@@ -67,7 +67,7 @@
   /*.jsparsons-unit-editor, */
 }
 /* line 64, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-editor-container .jsparsons-mode-editor .jsparsons-var-editor {
+.jsparsons-editor-container .jsparsons-mode-editor .jsparsons-varcheck-editor {
   padding: 0 1rem;
   background-color: #eee;
 }
@@ -149,19 +149,37 @@
 }
 
 /* line 129, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-var-editor td {
-  padding: 0.5rem;
+.jsparsons-varcheck-editor p {
+  margin-bottom: 0;
 }
 /* line 132, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-var-editor .jsparsons-varchecks > div {
+.jsparsons-varcheck-editor .jsparsons-varcheck-codes {
   display: flex;
 }
-/* line 134, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-var-editor .jsparsons-varchecks > div input, .jsparsons-var-editor .jsparsons-varchecks > div textarea {
+/* line 135, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-varcheck-editor .jsparsons-component {
+  padding: 0;
+}
+/* line 138, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-varcheck-editor .jsparsons-varcheck {
+  padding: 0.1rem 0 0.5rem 0;
+  border-bottom: 2px solid #fff;
+}
+/* line 142, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-varcheck-editor .jsparsons-varchecks > div {
+  display: flex;
+  margin-top: 0.5rem;
+}
+/* line 145, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-varcheck-editor .jsparsons-varchecks > div input, .jsparsons-varcheck-editor .jsparsons-varchecks > div textarea {
   margin-right: 0.5rem;
 }
+/* line 148, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-varcheck-editor .jsparsons-varchecks > div input, .jsparsons-varcheck-editor .jsparsons-varchecks > div select {
+  min-width: 130px;
+}
 
-/* line 140, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 154, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview {
   display: none;
   position: fixed;
@@ -172,38 +190,38 @@
   background-color: #fff;
   padding: 1rem;
 }
-/* line 149, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 163, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview.visible {
   display: block;
 }
-/* line 152, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 166, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-container {
   display: flex;
 }
-/* line 155, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 169, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-source {
   width: 40%;
 }
-/* line 158, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 172, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-target {
   width: 60%;
 }
-/* line 161, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 175, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview h3 {
   margin-top: 0;
   text-align: center;
 }
-/* line 165, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 179, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview button {
   position: absolute;
   left: 0.5rem;
   top: 0.5rem;
 }
-/* line 170, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 184, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .fa-close {
   color: darkred;
 }
-/* line 173, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 187, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-buttons div {
   padding: 0.5rem;
   margin: 0.5rem;
@@ -212,7 +230,26 @@
   color: white;
 }
 
-/* line 181, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 196, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-turtle-model textarea {
+  width: calc(100% - 7.5rem);
+}
+
+/* line 200, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-modelturtle {
+  float: right;
+  height: 6.25rem;
+  width: 7.5rem;
+}
+/* line 205, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-modelturtle:empty:before {
+  content: "Click to run";
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 212, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button {
   font-size: 2rem;
   text-align: center;
@@ -221,7 +258,7 @@
   padding: 1rem;
   margin-top: 0.5rem;
 }
-/* line 188, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 219, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button:active {
   -moz-transition: color, 0.1s, linear;
   -o-transition: color, 0.1s, linear;

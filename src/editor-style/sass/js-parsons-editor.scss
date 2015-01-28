@@ -61,7 +61,7 @@ $animTiming: linear;
   }
   .jsparsons-mode-editor {
     clear: left;
-    /*.jsparsons-unit-editor, */.jsparsons-var-editor {
+    /*.jsparsons-unit-editor, */.jsparsons-varcheck-editor {
       padding: 0 1rem;
       background-color: $bgColor;
     }
@@ -125,14 +125,28 @@ $animTiming: linear;
     }
   }
 }
-.jsparsons-var-editor {
-  td {
-    padding: 0.5rem;
+.jsparsons-varcheck-editor {
+  p {
+    margin-bottom: 0;
+  }
+  .jsparsons-varcheck-codes {
+    display: flex;
+  }
+  .jsparsons-component {
+    padding: 0;
+  }
+  .jsparsons-varcheck {
+    padding: 0.1rem 0 0.5rem 0;
+    border-bottom: 2px solid #fff;
   }
   .jsparsons-varchecks > div {
     display: flex;
+    margin-top: 0.5rem;
     & input, & textarea {
       margin-right: 0.5rem;
+    }
+    input, select {
+      min-width: 130px;
     }
   }
 }
@@ -176,6 +190,23 @@ $animTiming: linear;
     border: 1px solid black;
     background-color: $mainColor;
     color: white;
+  }
+}
+.jsparsons-turtle-model {
+  textarea {
+    width: calc(100% - 7.5rem);
+  }
+}
+.jsparsons-modelturtle {
+  float: right;
+  height: 6.25rem; // 100px / 16px
+  width: 7.5rem;   // 120px / 16px
+
+  &:empty:before {
+    content: "Click to run";
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 }
 .jsparsons-test-button {

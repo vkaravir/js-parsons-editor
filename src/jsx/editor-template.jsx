@@ -18,7 +18,7 @@
       VAR_CHECK_CONF: "Variable check configuration",
       LINES_TO_SHOW: "Lines of code shown to student.",
       LINES_INSTRUCTIONS: "Note, that the order indicates the correct order and that two spaces at the beginning of a line indicates an indentation of one step.",
-      VAR_DESCRIPTION: "Description",
+      VAR_DESCRIPTION: "Description of the testcase",
       VAR_CODE_BEFORE: "Code before",
       VAR_CODE_AFTER: "Code after",
       VAR_CHECKS: "Variable Checks",
@@ -56,7 +56,7 @@
       VAR_CHECK_CONF: "Muuttujien vertailun asetukset",
       LINES_TO_SHOW: "Opiskelijalle näytettävät koodirivit.",
       LINES_INSTRUCTIONS: "Huomaa, että rivien järjestys määrää oikean ratkaisun. Rivien sisennyksen voi määrätä välilyönneillä.",
-      VAR_DESCRIPTION: "Kuvaus",
+      VAR_DESCRIPTION: "Testitapauksen kuvaus",
       VAR_CODE_BEFORE: "Koodi ennen",
       VAR_CODE_AFTER: "Koodi jälkeen",
       VAR_CHECKS: "Muuttujien vertailut",
@@ -146,7 +146,7 @@
       }
       var _ = translator;
       return (
-        <div className={"jsparsons-editor-container jsparsons-" + this.state.mode + "-editor"}>
+        <div className={"jsparsons-editor-container jsparsons-" + this.state.mode + "-editor jsparsons-" + this.props.language}>
           <h2>{_("GRADING_TYPE")}</h2>
           <div className="jsparsons-mode-choice jsparsons-component-container">
             <ul>
@@ -279,19 +279,8 @@
       return (
         <div className="jsparsons-mode-editor">
           <h2><span className="fa fa-tasks"/>{_("VAR_CHECK_CONF")}</h2>
-          <div className="jsparsons-var-editor">
-            <table>
-              <thead>
-                <tr>
-                  <th>{_("VAR_DESCRIPTION")}</th>
-                  <th>{_("VAR_CODE_BEFORE")}</th>
-                  <th>{_("VAR_CODE_AFTER")}</th>
-                  <th>{_("VAR_CHECKS")}</th></tr>
-              </thead>
-              <tbody>
-              {vartests}
-              </tbody>
-            </table>
+          <div className="jsparsons-varcheck-editor">
+            {vartests}
             <button onClick={this._addCheck}>{_("ADD_TESTCASE")}</button>
           </div>
         </div>
@@ -358,18 +347,29 @@
       for (var i = 0; i < this.state.variables.length; i++) {
         var vari = this.state.variables[i];
         varchecks.push(new VarCheck({key: "var" + i, name: vari.key, value: vari.value, _: this.props._,
-            onchange: this.props.onchange,
-            update: function(i, name, val, valtype) {
-              this._updateVariable(i, name, val, valtype);
-            }.bind(this)}));
+          onchange: this.props.onchange,
+          update: function(i, name, val, valtype) {
+            this._updateVariable(i, name, val, valtype);
+          }.bind(this)}));
       }
+      var _ = this.props._;
       return (
-        <tr>
-          <td><textarea type="text" value={this.state.message} onChange={this._messageChanged}/></td>
-          <td><textarea type="text" value={this.state.initcode} onChange={this._initCodeChanged}/></td>
-          <td><textarea type="text" value={this.state.code} onChange={this._codeChanged}/></td>
-          <td className="jsparsons-varchecks">{varchecks}<div><button onClick={this._addVariable}>+</button></div></td>
-        </tr>
+        <div className="jsparsons-varcheck">
+          <p>{_("VAR_DESCRIPTION")}</p>
+          <textarea type="text" value={this.state.message} onChange={this._messageChanged}/>
+          <div className="jsparsons-varcheck-codes">
+            <div className="jsparsons-component jsparsons-left">
+              <p>{_("VAR_CODE_BEFORE")}</p>
+              <textarea type="text" value={this.state.initcode} onChange={this._initCodeChanged}/>
+            </div>
+            <div className="jsparsons-component jsparsons-right">
+              <p>{_("VAR_CODE_AFTER")}</p>
+              <textarea type="text" value={this.state.code} onChange={this._codeChanged}/>
+            </div>
+          </div>
+          <p>{_("VAR_CHECKS")}</p>
+          <div className="jsparsons-varchecks">{varchecks}<div><button onClick={this._addVariable}>+</button></div></div>
+        </div>
       );
     }
   });
