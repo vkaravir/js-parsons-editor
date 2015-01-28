@@ -28,6 +28,10 @@
       TYPE_BOOLEAN: "Boolean",
       TYPE_STRING: "String",
       NAME: "Variable name",
+      UNITTEST_INSTRUCTIONS: "Unittests can include almost arbitrary Python code. Instructions for writing Python unittests can be found from the" +
+                             " <a href='https://docs.python.org/2/library/unittest.html'>Python documentation</a>.<br/><br/>" +
+                             "<strong>Note!</strong> It is crucial to execute the tests and store the result into variable <code>" +
+                             "_test_result</code>, like done on the last line of the example code on the left.",
       TURTLE_CONF: "Turtle configuration",
       TURTLE_MODEL_INSTR: "Python code for the model turtle pattern (you can use variable modelTurtle to access the turtle object):",
       TURTLE_PENDOWN: "Is turtle pen down initially",
@@ -66,6 +70,10 @@
       TYPE_BOOLEAN: "Totuusarvo",
       TYPE_STRING: "Merkkijono",
       NAME: "Muuttujan nimi",
+      UNITTEST_INSTRUCTIONS: "Yksikkötestit voivat sisältää lähes mitä tahansa Python koodia. Ohjeita yksikkötestien kirjoittamiseen " +
+                             "löytyy <a href='https://docs.python.org/2/library/unittest.html'>Pythonin dokumentaatiosta</a>.<br/><br/>" +
+                             "<strong>Huom!</strong> On erityisen tärkeää suorittaa testit ja sijoittaa tulos muuttujaan <code>" +
+                             "_test_result</code>, kuten vasemmalla olevan esimerkkikoodin viimeisellä rivillä.",
       TURTLE_CONF: "Kilpikonna-asetukset",
       TURTLE_MODEL_INSTR: "Python-koodi, joka piirtää kilpikonnan mallipolun (kilpikonna on muuttujassa modelTurtle):",
       TURTLE_PENDOWN: "Kilpikonnan kynä alhalla ohjelman alussa",
@@ -460,7 +468,7 @@
             <div className="jsparsons-component jsparsons-left">
               <textarea rows="10" value={this.state.unittests} onChange={this._testsChanged}></textarea>
             </div>
-            <p className="jsparsons-component jsparsons-right">TODO: Instructions...</p>
+            <p className="jsparsons-component jsparsons-right" dangerouslySetInnerHTML={{__html:this.props._("UNITTEST_INSTRUCTIONS")}}></p>
           </div>
         </div>
       )
