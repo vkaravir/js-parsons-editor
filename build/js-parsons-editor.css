@@ -266,3 +266,27 @@
   transition: color, 0.1s, linear;
   color: black;
 }
+
+/* line 175, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-exercise-config__container {
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: white;
+  padding: 20px;
+}
+
+/* line 184, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-exercise-config__close {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+
+/* line 189, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-exercise-config__code {
+  height: calc(100% - 2.5rem);
+  overflow: auto;
+}

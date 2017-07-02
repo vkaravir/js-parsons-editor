@@ -558,6 +558,19 @@
         this.setState({feedback: this.props._("SOLVED_FEEDBACK")});
       }
     },
+    _showConfig: function() {
+      this.setState({configVisible: true});
+    },
+    _hideConfig: function() {
+      this.setState({configVisible: false});
+    },
+    getExerciseConfigElement: function() {
+      if (this.state.configVisible) {
+        return (
+          ExerciseConfiguration({config: this.props.editor.getExerciseConfig(), close: this._hideConfig})
+        );
+      }
+    },
     render: function() {
       var _ = this.props._;
       return (
@@ -573,11 +586,33 @@
               React.DOM.div({onClick: this._resetWidget}, _("RESET")), 
               React.DOM.div({onClick: this._showWidgetFeedback}, _("FEEDBACK"))
             ), 
-            React.DOM.div({className: "jsparsons-feedback", dangerouslySetInnerHTML: {__html:this.state.feedback}})
+            React.DOM.div({className: "jsparsons-feedback", dangerouslySetInnerHTML: {__html:this.state.feedback}}), 
+            React.DOM.div({onClick: this._showConfig}, "Show config"), 
+            this.getExerciseConfigElement()
           ), 
           React.DOM.div({className: "jsparsons-test-button", onClick: this.testWidget}, _("TEST_BUTTON"))
         )
       );
+    }
+  });
+
+  var ExerciseConfiguration = React.createClass({displayName: 'ExerciseConfiguration',
+    render: function() {
+      var config = this.props.config;
+      var codelines = config.codelines;
+      delete config.codelines;
+      var configStr = 'var options = ' + JSON.stringify(config, null, 2) + ';\n' +
+                      'var codelines = "' + codelines.join('\\n" +\n    "') + '";\n\n' +
+                      'var parson = new ParsonsWidget(options);\n' +
+                      'parson.init(codelines);';
+
+      return (
+        React.DOM.div({className: "jsparsons-exercise-config__container"}, 
+          React.DOM.h3(null, "Exercise configuration"), 
+          React.DOM.div({className: "jsparsons-exercise-config__close", onClick: this.props.close}, "Close"), 
+          React.DOM.textarea({className: "jsparsons-exercise-config__code", defaultValue: configStr})
+        )
+      )
     }
   });
 

@@ -558,6 +558,19 @@
         this.setState({feedback: this.props._("SOLVED_FEEDBACK")});
       }
     },
+    _showConfig: function() {
+      this.setState({configVisible: true});
+    },
+    _hideConfig: function() {
+      this.setState({configVisible: false});
+    },
+    getExerciseConfigElement: function() {
+      if (this.state.configVisible) {
+        return (
+          <ExerciseConfiguration config={this.props.editor.getExerciseConfig()} close={this._hideConfig} />
+        );
+      }
+    },
     render: function() {
       var _ = this.props._;
       return (
@@ -574,10 +587,32 @@
               <div onClick={this._showWidgetFeedback}>{_("FEEDBACK")}</div>
             </div>
             <div className="jsparsons-feedback" dangerouslySetInnerHTML={{__html:this.state.feedback}}></div>
+            <div onClick={this._showConfig}>Show config</div>
+            {this.getExerciseConfigElement()}
           </div>
           <div className="jsparsons-test-button" onClick={this.testWidget}>{_("TEST_BUTTON")}</div>
         </div>
       );
+    }
+  });
+
+  var ExerciseConfiguration = React.createClass({
+    render: function() {
+      var config = this.props.config;
+      var codelines = config.codelines;
+      delete config.codelines;
+      var configStr = 'var options = ' + JSON.stringify(config, null, 2) + ';\n' +
+                      'var codelines = "' + codelines.join('\\n" +\n    "') + '";\n\n' +
+                      'var parson = new ParsonsWidget(options);\n' +
+                      'parson.init(codelines);';
+
+      return (
+        <div className="jsparsons-exercise-config__container">
+          <h3>Exercise configuration</h3>
+          <div className="jsparsons-exercise-config__close" onClick={this.props.close}>Close</div>
+          <textarea className="jsparsons-exercise-config__code" defaultValue={configStr}></textarea>
+        </div>
+      )
     }
   });
 

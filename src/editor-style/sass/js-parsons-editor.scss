@@ -221,3 +221,21 @@ $animTiming: linear;
     color: black;
   }
 }
+.jsparsons-exercise-config__container {
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: white;
+  padding: 20px;
+}
+.jsparsons-exercise-config__close {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}
+.jsparsons-exercise-config__code {
+  height: calc(100% - 2.5rem);
+  overflow: auto;
+}
