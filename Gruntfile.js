@@ -14,22 +14,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
-      build: {
-        files: {
-          "build/js-parsons-editor.js": "src/js-parsons-editor.js"
-        }
-      }
-    },
-    react: {
-      templates: {
-        files: {
-          "build/js-parsons-editor-templates.js": [
-            'src/jsx/editor-template.jsx'
-          ]
-        }
-      }
-    },
     watch: {
       editor: {
         files: ['src/*', 'src/**/*'],
@@ -38,5 +22,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("default", ["compass", "uglify", "react"]);
+  grunt.registerTask("default", ["compass"]);
 };

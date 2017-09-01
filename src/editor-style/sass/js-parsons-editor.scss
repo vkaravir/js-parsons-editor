@@ -159,7 +159,7 @@ $animTiming: linear;
   bottom: 0;
   right: 0;
   background-color: #fff;
-  padding: 1rem;
+  overflow: auto;
   &.visible {
     display: block;
   }
@@ -171,18 +171,6 @@ $animTiming: linear;
   }
   .jsparsons-target {
     width: 60%;
-  }
-  h3 {
-    margin-top: 0;
-    text-align: center;
-  }
-  button {
-    position: absolute;
-    left: 0.5rem;
-    top: 0.5rem;
-  }
-  .fa-close {
-    color: darkred;
   }
   .jsparsons-buttons div {
     padding: 0.5rem;
@@ -221,6 +209,23 @@ $animTiming: linear;
     color: black;
   }
 }
+.jsparsons-preview__header {
+  align-items: center;
+  position: relative;
+  background-color: $mainColor;
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+}
+.jsparsons-preview__title {
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+.jsparsons-preview__link {
+  color: #fff;
+  text-decoration: none;
+}
 .jsparsons-exercise-config__container {
   width: 100vw;
   position: fixed;
@@ -228,7 +233,6 @@ $animTiming: linear;
   top: 0;
   height: 100vh;
   background: white;
-  padding: 20px;
 }
 .jsparsons-exercise-config__close {
   position: absolute;
@@ -237,5 +241,6 @@ $animTiming: linear;
 }
 .jsparsons-exercise-config__code {
   height: calc(100% - 2.5rem);
+  margin: 0.5rem;
   overflow: auto;
 }

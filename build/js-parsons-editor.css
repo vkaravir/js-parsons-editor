@@ -188,7 +188,7 @@
   bottom: 0;
   right: 0;
   background-color: #fff;
-  padding: 1rem;
+  overflow: auto;
 }
 /* line 163, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview.visible {
@@ -207,21 +207,6 @@
   width: 60%;
 }
 /* line 175, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-preview h3 {
-  margin-top: 0;
-  text-align: center;
-}
-/* line 179, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-preview button {
-  position: absolute;
-  left: 0.5rem;
-  top: 0.5rem;
-}
-/* line 184, ../src/editor-style/sass/js-parsons-editor.scss */
-.jsparsons-preview .fa-close {
-  color: darkred;
-}
-/* line 187, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-preview .jsparsons-buttons div {
   padding: 0.5rem;
   margin: 0.5rem;
@@ -230,18 +215,18 @@
   color: white;
 }
 
-/* line 196, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 184, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-turtle-model textarea {
   width: calc(100% - 7.5rem);
 }
 
-/* line 200, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 188, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-modelturtle {
   float: right;
   height: 6.25rem;
   width: 7.5rem;
 }
-/* line 205, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 193, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-modelturtle:empty:before {
   content: "Click to run";
   display: block;
@@ -249,7 +234,7 @@
   height: 100%;
 }
 
-/* line 212, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 200, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button {
   font-size: 2rem;
   text-align: center;
@@ -258,7 +243,7 @@
   padding: 1rem;
   margin-top: 0.5rem;
 }
-/* line 219, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 207, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-test-button:active {
   -moz-transition: color, 0.1s, linear;
   -o-transition: color, 0.1s, linear;
@@ -267,7 +252,30 @@
   color: black;
 }
 
-/* line 175, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 212, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview__header {
+  align-items: center;
+  position: relative;
+  background-color: darkorange;
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+}
+
+/* line 220, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview__title {
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* line 225, ../src/editor-style/sass/js-parsons-editor.scss */
+.jsparsons-preview__link {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 229, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-exercise-config__container {
   width: 100vw;
   position: fixed;
@@ -275,18 +283,18 @@
   top: 0;
   height: 100vh;
   background: white;
-  padding: 20px;
 }
 
-/* line 184, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 237, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-exercise-config__close {
   position: absolute;
   right: 0.5rem;
   top: 0.5rem;
 }
 
-/* line 189, ../src/editor-style/sass/js-parsons-editor.scss */
+/* line 242, ../src/editor-style/sass/js-parsons-editor.scss */
 .jsparsons-exercise-config__code {
   height: calc(100% - 2.5rem);
+  margin: 0.5rem;
   overflow: auto;
 }
